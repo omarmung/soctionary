@@ -1,0 +1,8 @@
+node_modules
+public/bower_components/
+db/
+.npm
+.node_repl_history
+logs
+*.logs
+npm-debug.log*
