@@ -1,0 +1,26 @@
+{
+  "name": "soctionary",
+  "version": "1.0.0",
+  "description": "Multi-player drawing game",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "nodemon": "^1.10.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jousting-fern/soctionary.git"
+  },
+  "author": "Team Jousting Fern",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jousting-fern/soctionary/issues"
+  },
+  "homepage": "https://github.com/jousting-fern/soctionary#readme"
+}
