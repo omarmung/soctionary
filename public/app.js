@@ -18,6 +18,6 @@ var canvas = new fabric.Canvas('canvas', {
 
 canvas.on('path:created', function(options) {
   console.log( JSON.stringify(canvas) );
+  socket.emit('draw', canvas);
   // console.log(options.e.clientX, options.e.clientY);
 });
-
