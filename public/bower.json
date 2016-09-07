@@ -1,0 +1,21 @@
+{
+  "name": "Socktionary",
+  "homepage": "https://github.com/jousting-fern/soctionary",
+  "authors": [
+    "Team Jousting Fern"
+  ],
+  "description": "Multi-player drawing gamez",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fabric.js": "fabric#^1.6.4"
+  }
+}

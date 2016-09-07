@@ -5,8 +5,9 @@ var app = express();
 
 // static routes
 app.use(express.static('public'));
-app.use(express.static('public/bower_components/fabric.js/dist'));
 app.use('/static', express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/public/bower_components/fabric.js/dist'));
+
 
 //routes
 app.get('/test', function(req, res) {
