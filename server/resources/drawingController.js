@@ -4,9 +4,9 @@ exports.addDrawing = function (req, res) {
   console.log('receiving addReq @ this endpoint!');
   var drawing = req.params; // note: this will change based on how we receive drawing
   var newDrawing = new Drawing ({
-    imageId: drawing.imageId,
-    userName: drawing.userName,
-    roundId: drawing.roundId
+    playerName: drawing.playerName,
+    roundId: drawing.roundId,
+    vectorDrawing: drawing.vectorDrawing
   }).save(function (err) {
     if (err) {
       console.log(err);
@@ -28,6 +28,17 @@ exports.retrieveRoundsDrawings = function (req, res) {
       console.log(err);
     } else {
       res.json(drawing); // method of send will be later determined.. may pivot from json
+    }
+  });
+};
+
+exports.addPlayer = function (req, res) {
+  var player = req.params; // note: subject to change
+  var newPlayer = new Player ({
+    playerName: player.playerName
+  }).save(function (err) {
+    if (err) {
+      console.log(err);
     }
   });
 };
