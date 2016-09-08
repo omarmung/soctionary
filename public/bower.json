@@ -4,7 +4,7 @@
   "authors": [
     "Team Jousting Fern"
   ],
-  "description": "Multi-player drawing gamez",
+  "description": "Multi-player drawing game",
   "main": "index.html",
   "license": "MIT",
   "private": true,
@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "fabric.js": "fabric#^1.6.4"
+    "fabric.js": "fabric#^1.6.4",
+    "react": "^15.3.1"
   }
 }
