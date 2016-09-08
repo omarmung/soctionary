@@ -1,14 +1,15 @@
+import React from 'react'
 var Board = () => (
 	<div>
 		<canvas id="canvas" width="1400" height="480"></canvas>
 		</div>
 	)
 
-class Drawing extends React.Component {
+export default class Drawing extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			drawCanvas: false;
+			drawCanvas: false
 		}
 	}
 
@@ -20,7 +21,7 @@ class Drawing extends React.Component {
 		socket.on('draw', function () {
 
 			this.setState({
-				drawCanvas: true;
+				drawCanvas: true
 			})
 
 			var canvas = new fabric.Canvas('canvas', {

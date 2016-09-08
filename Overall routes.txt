@@ -1,0 +1,18 @@
+Use react router to setup routes.
+
+Starting screen
+	Everyone is ready?
+	a button that
+		sends list of users to server
+		and moves to loading screen
+
+Go to drawing page with only animal named rendered
+	after 2 seconds, render drawing canvas
+	after 5 seconds, close canvas and send picture to server
+
+Go to voting screen
+	render everyone's picture on screen with a way to vote for each picture
+	after x amount of seconds, send back the votes to server
+
+Go to results screen
+	render page with winner and a button that takes them back to the top.
