@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.4/fabric.min.js'></script>	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src='static/fabric.js'></script>
 	<script src='./lib/jquery.lettering-0.6.1.min.js'></script>
 	<script src='./lib/textillate.js'></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -21,20 +21,7 @@
 </head>
 
 <body>
-    <div class='container'>
-        <!-- <div class='testclass' id='testid'>css test</div> -->
-        <div class='header'>5-Second Animal
-            <!-- <form>
-                <button id='button1'>Toggle Drawing Mode</button>
-                <input type="color" id="colorPicker" onchange="" value="#ff0000" style="width:40px">
-                <button>Brush</button>
-            </form> -->
-        </div>
-        <canvas id="canvas" width="1400" height="480"></canvas>
-        <div class='footer'>by Team Jousting Fern</div>
-
-
+			<div id='app'></div>
         <script src='compiled/bundle.js'></script>
-    </div>
 </body>
 </html>
