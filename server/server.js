@@ -11,7 +11,7 @@ var path = require('path');
 // static routes
 app.use(express.static('public'));
 app.use('/static', express.static(__dirname + '/../public'));
-app.use('/static', express.static(__dirname + '/../public/bower_components/fabric.js/dist'));
+app.use('/static', express.static(__dirname + '/../public/node_modules/fabric/dist'));
 app.use('/api/drawings', drawingRouter);
 
 var animals = [];

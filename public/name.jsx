@@ -1,4 +1,7 @@
-class Name extends React.Component {
+import React from 'react'
+
+
+export default class Name extends React.Component {
 	constructor(props) {
 		super(props)
 	}
@@ -17,9 +20,9 @@ class Name extends React.Component {
 
 	render() {
 		return (
-				<div class="user-register">
+				<div className="user-register">
 					<input type='text' id='player' placeholder='stumpy the kitty' />
-					<button value='Submit' onClick={sendName(document.getElementbyId('player').value)} />
+					<button value='Submit' onClick={function () {this.sendName(document.getElementById('player').value)}.bind(this)} />
 
 				</div>
 

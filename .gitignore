@@ -1,5 +1,5 @@
 node_modules
-public/bower_components/
+public/node_modules/
 .npm
 .node_repl_history
 logs
