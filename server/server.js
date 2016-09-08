@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var db = require('./db');
+// var db = require('../db');
 var drawingRouter = require('./resources/drawingRouter');
 var path = require('path');
 
@@ -37,7 +37,9 @@ io.on('connection', function(socket) {
 // });
 
   socket.on('ready', function () {
-    io.emit('countdown', animals[Math.floor(Math.random() * animals.length)]);
+    var animal = animals[Math.floor(Math.random() * animals.length)]
+    io.sockets.emit('countdown', animal);
+    socket.on('')
     setTimeout(function () {
       io.emit('draw');
       setTimeout(function () {
