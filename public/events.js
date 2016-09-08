@@ -12,7 +12,7 @@ socket.emit('ready');
 //
 
 //
-socket.on('countdown'. function (animalName) {
+socket.on('countdown', function (animalName) {
   //redirect to countdown view
 });
 //
@@ -33,6 +33,9 @@ socket.on('end', function () {
 //
 socket.on('vote', function (images) {
   //redirect to voting view
+  // images is an array of JSON.stringify(canvas) objects to vote on
+  
+  renderDrawings(images);
 });
 //
 
