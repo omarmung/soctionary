@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src='static/fabric.js'></script>
+	<script src='./lib/jquery.lettering-0.6.1.min.js'></script>
+	<script src='./lib/textillate.js'></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-	
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<script> var socket = io(); </script>
+	<script>
+    $(document).ready(function() {
+      $(".fancy_title").lettering();
+    });
+    $(function () {
+      $('.tlt').textillate();
+    });
+	</script>
 	<meta charset='utf-8'>
 	<title>Socktionary</title>
 </head>
 
 <body>
+  <h1 style="text-align:center;" class="tlt">Everyone ready?!</h1>
      <div id="app"></div>
 	  <script src='compiled/index.js'></script>
 </body>
