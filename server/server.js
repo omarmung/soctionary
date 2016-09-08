@@ -37,9 +37,7 @@ io.on('connection', function(socket) {
 // });
 
   socket.on('ready', function () {
-    var animal = animals[Math.floor(Math.random() * animals.length)]
-    io.sockets.emit('countdown', animal);
-    socket.on('')
+    io.sockets.emit('countdown', animals[Math.floor(Math.random() * animals.length)]);
     setTimeout(function () {
       io.emit('draw');
       setTimeout(function () {
