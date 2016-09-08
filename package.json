@@ -4,6 +4,7 @@
   "description": "Multi-player drawing game",
   "main": "server.js",
   "dependencies": {
+    "animate.css": "^3.5.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongoose": "^4.6.0",
