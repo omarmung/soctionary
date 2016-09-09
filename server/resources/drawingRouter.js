@@ -1,5 +1,6 @@
 var drawingRouter = require('express').Router();
 var drawingController = require('./drawingController');
+var voteController = require('./voteController');
 
 drawingRouter.route('/:roundId')
   .get(drawingController.retrieveRoundsDrawings)
