@@ -5,10 +5,21 @@ var drawingSchema = mongoose.Schema({
     type: Number,
     unique: true
   },
-  userName: String,
-  roundId: String
+  playerId: Number,
+  roundId: Number,
+  vectorDrawing: String,
+  roundVotes: Number
+});
+
+var playerSchema = mongoose.Schema({
+  playerId: {
+    type: Number,
+    unique: true
+  },
+  playerName: String
 });
 
 var Drawing = mongoose.model('Drawing', drawingSchema);
+var Player = mongoose.model('Player', playerSchema);
 
 module.exports = Drawing;
