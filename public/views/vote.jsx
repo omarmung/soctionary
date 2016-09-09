@@ -59,7 +59,7 @@ export default class Vote extends React.Component {
 
 		socket.on('countVotes', function()  {
 			//Emit name voted on to server.
-			socket.emit('vote', name)
+			socket.emit('vote', name);
 		})
 
 
