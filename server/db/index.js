@@ -10,7 +10,7 @@ db.on('error', function (err) {
 });
 
 db.once('open', function() {
-  console.log('DB is hooked up!');
+  console.log('connected to mongo');
 });
 
 module.exports = db;

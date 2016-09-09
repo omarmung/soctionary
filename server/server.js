@@ -6,12 +6,41 @@ var io = require('socket.io')(http);
 var db = require('./db');
 var drawingController = require('./resources/drawingController');
 var path = require('path');
+var port = process.env.PORT || 8080;
 
 app.use(express.static('public'));
 app.use('/static', express.static(__dirname + '/../public'));
 app.use('/static', express.static(__dirname + '/../public/node_modules/fabric/dist'));
 
-var animals = [];
+var animals = [
+  'penguin',
+  'turtle',
+  'butterfly',
+  'dragonfly',
+  'frog',
+  'monkey',
+  'shark',
+  'fish',
+  'bird',
+  'elephant',
+  'dolphin',
+  'dog',
+  'horse',
+  'bunny',
+  'snail',
+  'mouse',
+  'seal',
+  'pig',
+  'cow',
+  'turkey',
+  'camel',
+  'cat',
+  'rhino',
+  'bear',
+  'spider',
+  'ant',
+  'caterpillar'
+];
 
 var clients = {};
 var rounds = 0;
@@ -27,7 +56,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('ready', function () {
-    io.sockets.emit('countdown', animals[Math.floor(Math.random() * animals.length)]);
+    io.emit('countdown', animals[Math.floor(Math.random() * animals.length)]);
     setTimeout(function () {
       io.emit('draw');
       setTimeout(function () {
@@ -49,12 +78,12 @@ io.on('connection', function(socket) {
         drawingController.retrieveRoundsDrawings(rounds, function (data) {
           images = data;
           var time = Math.max(10, clients.length * 2)
-          io.sockets.emit('vote', {
+          io.emit('vote', {
             images: images,
             time: time
           });
           setTimeout(function () {
-            io.sockets.emit('countVotes');
+            io.emit('countVotes');
           }, time * 1000);
         });
         queried = true;
@@ -71,7 +100,7 @@ io.on('connection', function(socket) {
       for (var i = 0; i < images.length; i++) {
         images[i].votes = clients[images[i][name]];
       }
-      io.emit('results', images);
+      socket.emit('results', images);
     }, 1000);
     
   });
@@ -89,6 +118,6 @@ io.on('connection', function(socket) {
 
 });
 
-http.listen(8080, function(data) {
-  console.log('server starting...');
+http.listen(port, function(data) {
+  console.log('listening on ' + port);
 });
