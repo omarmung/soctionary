@@ -8,7 +8,7 @@ var drawingSchema = mongoose.Schema({
   playerId: Number,
   roundId: Number,
   vectorDrawing: String,
-  roundVotes: Number
+  roundVotes: Number // allocate roundVotes after
 });
 
 var playerSchema = mongoose.Schema({
