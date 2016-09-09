@@ -19,18 +19,16 @@ var Select = (props) => (
 
 //voted is the id tag for the current voted drawing
 
-
 export default class Vote extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			renderInfo: [],
 
-
 		}
 	}
 
-	componentWillMount () {
+	componentWillMount() {
 		var info = [];
 		socket.on('vote', function (data) {
 			//time for countdown
@@ -38,7 +36,7 @@ export default class Vote extends React.Component {
 
 
 			var images = [];
-			data.forEach( function(blob) {
+			data.images.forEach( function(blob) {
 				console.log(blob);
 				images.push(blob.vectorDrawing);
 				info.push({
@@ -51,15 +49,13 @@ export default class Vote extends React.Component {
 				renderInfo: info
 			})
 
+
 		  // redirect to voting view
 		  // images is an array of JSON.stringify(canvas) objects to vote on
-		  data.forEach(function() {
-		  })
-
 		  this.renderDrawings(images);
 
 
-		}).bind(this);
+		}.bind(this));
 
 		socket.on('countVotes', function()  {
 			//Emit name voted on to server.
@@ -69,16 +65,16 @@ export default class Vote extends React.Component {
 
 	}
 
+	chooseVote(){
+	   
+	}
 
-	// voting(id) {
-	// 	if(document.getElementsByClassName('voted')[0]) {
-	// 		document.getElementsByClassName('voted')[0].classList.remove("voted")
-	// 	} else
-	// 	{
-	// 		document.getElementById('voted').classList.remove("voted")
-	// 		document.getElementById(id).className += "voted"
-	// 	}
-	// }
+	voting(id) {
+		if(document.getElementsByClassName('voted')[0]) {
+			document.getElementsByClassName('voted')[0].classList.remove("voted")
+		}
+		document.getElementById(id).className += "voted"
+	}
 
 	renderDrawings(arr){
 		// arr.forEach(function(pic) {
@@ -105,8 +101,6 @@ export default class Vote extends React.Component {
 			  		document.getElementById(id).appendChild(image);
 			  		canvas.clear();
 
-
-
 			  		//place image on canvas/page appropriately
 			  	});
 			//canvas.renderAll.bind(canvas)
@@ -119,26 +113,21 @@ export default class Vote extends React.Component {
 			// parent.removeChild(child);
 
 
-	}
-
-	chooseVote(){
-	   
-	}
+	};
 
 	render() {
 		//Need to decide if we use one big canvas, or just render images of all the drawings
 		return (
 			<div id="vote">
-
 				{this.state.renderInfo.map((data) => 
 					<Select id={data.id} name = {data.name} voting={this.voting.bind(this)}/>
 				)}
 				<canvas id="test" width="1000" height="400" display="none"></canvas>
 
-
 			</div>
+
+
 
 			)
 	}
 }
-

@@ -28200,7 +28200,6 @@
 	
 	//voted is the id tag for the current voted drawing
 	
-	
 	var Vote = function (_React$Component) {
 		_inherits(Vote, _React$Component);
 	
@@ -28225,7 +28224,7 @@
 					var time = data.time;
 	
 					var images = [];
-					data.forEach(function (blob) {
+					data.images.forEach(function (blob) {
 						console.log(blob);
 						images.push(blob.vectorDrawing);
 						info.push({
@@ -28240,27 +28239,25 @@
 	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
-					data.forEach(function () {});
-	
 					this.renderDrawings(images);
-				}).bind(this);
+				}.bind(this));
 	
 				socket.on('countVotes', function () {
 					//Emit name voted on to server.
 					socket.emit('vote', name);
 				});
 			}
-	
-			// voting(id) {
-			// 	if(document.getElementsByClassName('voted')[0]) {
-			// 		document.getElementsByClassName('voted')[0].classList.remove("voted")
-			// 	} else
-			// 	{
-			// 		document.getElementById('voted').classList.remove("voted")
-			// 		document.getElementById(id).className += "voted"
-			// 	}
-			// }
-	
+		}, {
+			key: "chooseVote",
+			value: function chooseVote() {}
+		}, {
+			key: "voting",
+			value: function voting(id) {
+				if (document.getElementsByClassName('voted')[0]) {
+					document.getElementsByClassName('voted')[0].classList.remove("voted");
+				}
+				document.getElementById(id).className += "voted";
+			}
 		}, {
 			key: "renderDrawings",
 			value: function renderDrawings(arr) {
@@ -28299,9 +28296,6 @@
 				// parent.removeChild(child);
 	
 			}
-		}, {
-			key: "chooseVote",
-			value: function chooseVote() {}
 		}, {
 			key: "render",
 			value: function render() {

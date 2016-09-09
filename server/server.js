@@ -41,8 +41,7 @@ var animals = [
   'ant',
   'caterpillar'
 ];
- 
-var animals = ['Pikachu'];
+
 
 var clients = {};
 var rounds = 0;
@@ -119,6 +118,7 @@ io.on('connection', function(socket) {
   });
 
 });
+
 
 http.listen(port, function(data) {
   console.log('listening on ' + port);
