@@ -19,6 +19,7 @@ var Select = (props) => (
 
 //voted is the id tag for the current voted drawing
 
+
 export default class Vote extends React.Component {
 	constructor(props) {
 		super(props)
@@ -74,6 +75,7 @@ export default class Vote extends React.Component {
 			document.getElementsByClassName('voted')[0].classList.remove("voted")
 		}
 		document.getElementById(id).className += "voted"
+
 	}
 
 	renderDrawings(arr){
@@ -102,6 +104,7 @@ export default class Vote extends React.Component {
 			  		canvas.clear();
 
 
+
 			  		//place image on canvas/page appropriately
 			  	});
 			//canvas.renderAll.bind(canvas)
@@ -124,10 +127,12 @@ export default class Vote extends React.Component {
 		//Need to decide if we use one big canvas, or just render images of all the drawings
 		return (
 			<div id="vote">
+
 				{this.state.renderInfo.map((data) => 
 					<Select id={data.id} name = {data.name} voting={this.voting.bind(this)}/>
 				)}
 				<canvas id="test" width="1000" height="400" display="none"></canvas>
+
 
 			</div>
 

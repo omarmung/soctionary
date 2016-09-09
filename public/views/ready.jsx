@@ -22,8 +22,6 @@ export default class ready extends React.Component {
 		<div>
 			<h1> Everyone Ready? </h1>
 			<button value="Press this button when everyone is in" onClick={this.start}>Press this button when everyone is ready</button>
-
-
 		</div>
 	
 	)}

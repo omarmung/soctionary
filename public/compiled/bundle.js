@@ -28200,6 +28200,7 @@
 	
 	//voted is the id tag for the current voted drawing
 	
+	
 	var Vote = function (_React$Component) {
 		_inherits(Vote, _React$Component);
 	
