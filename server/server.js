@@ -20,7 +20,7 @@ var clients = {};
 
 io.on('connection', function(socket) {
   // do something on connect
-  console.log('NEW SOCKET CONNECTION!', socket);
+  //console.log('NEW SOCKET CONNECTION!', socket);
   
   socket.on('name', function (name) {
     socket.name = name;
