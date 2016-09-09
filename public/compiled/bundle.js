@@ -28026,7 +28026,7 @@
 						console.log('Saving drawing to image variable...');
 						console.log(JSON.stringify(canvas));
 					});
-				});
+				}.bind(this));
 	
 				socket.on('end', function () {
 					//send image to server
