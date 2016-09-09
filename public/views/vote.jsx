@@ -26,10 +26,11 @@ export default class Vote extends React.Component {
 		this.state = {
 			renderInfo: [],
 
+
 		}
 	}
 
-	componentWillMount() {
+	componentWillMount () {
 		var info = [];
 		socket.on('vote', function (data) {
 			//time for countdown
@@ -37,7 +38,7 @@ export default class Vote extends React.Component {
 
 
 			var images = [];
-			data.images.forEach( function(blob) {
+			data.forEach( function(blob) {
 				console.log(blob);
 				images.push(blob.vectorDrawing);
 				info.push({
@@ -50,13 +51,15 @@ export default class Vote extends React.Component {
 				renderInfo: info
 			})
 
-
 		  // redirect to voting view
 		  // images is an array of JSON.stringify(canvas) objects to vote on
+		  data.forEach(function() {
+		  })
+
 		  this.renderDrawings(images);
 
 
-		}.bind(this));
+		}).bind(this);
 
 		socket.on('countVotes', function()  {
 			//Emit name voted on to server.
@@ -66,17 +69,16 @@ export default class Vote extends React.Component {
 
 	}
 
-	chooseVote(){
-	   
-	}
 
-	voting(id) {
-		if(document.getElementsByClassName('voted')[0]) {
-			document.getElementsByClassName('voted')[0].classList.remove("voted")
-		}
-		document.getElementById(id).className += "voted"
-
-	}
+	// voting(id) {
+	// 	if(document.getElementsByClassName('voted')[0]) {
+	// 		document.getElementsByClassName('voted')[0].classList.remove("voted")
+	// 	} else
+	// 	{
+	// 		document.getElementById('voted').classList.remove("voted")
+	// 		document.getElementById(id).className += "voted"
+	// 	}
+	// }
 
 	renderDrawings(arr){
 		// arr.forEach(function(pic) {
