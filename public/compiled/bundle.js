@@ -28113,9 +28113,33 @@
 		}
 	
 		_createClass(Result, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+	
+				// listen to switch to readyView
+				socket.on('readyView', function () {
+					window.location.href = '#/ready';
+				});
+			}
+		}, {
+			key: 'sendPlayAgain',
+			value: function sendPlayAgain() {
+				// emit event to server
+				socket.emit('again');
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', null);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						null,
+						'We\'re all winners.'
+					),
+					_react2.default.createElement('button', { value: 'Just kidding, play again', onClick: this.sendPlayAgain })
+				);
 			}
 		}]);
 	
@@ -28272,6 +28296,9 @@
 				// parent.removeChild(child);
 	
 			}
+		}, {
+			key: "chooseVote",
+			value: function chooseVote() {}
 		}, {
 			key: "render",
 			value: function render() {

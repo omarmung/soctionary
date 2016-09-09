@@ -101,6 +101,7 @@ export default class Vote extends React.Component {
 			  		document.getElementById(id).appendChild(image);
 			  		canvas.clear();
 
+
 			  		//place image on canvas/page appropriately
 			  	});
 			//canvas.renderAll.bind(canvas)
@@ -113,7 +114,11 @@ export default class Vote extends React.Component {
 			// parent.removeChild(child);
 
 
-	};
+	}
+
+	chooseVote(){
+	   
+	}
 
 	render() {
 		//Need to decide if we use one big canvas, or just render images of all the drawings
@@ -125,8 +130,6 @@ export default class Vote extends React.Component {
 				<canvas id="test" width="1000" height="400" display="none"></canvas>
 
 			</div>
-
-
 
 			)
 	}
