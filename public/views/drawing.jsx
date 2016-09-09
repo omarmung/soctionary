@@ -34,8 +34,8 @@ export default class Drawing extends React.Component {
 		  //redirect to draw view
 		  canvas.on('path:created', function(options) {
 		    image = JSON.stringify(canvas);
-		    console.log('Saving drawing to image variable...');
-		    console.log(JSON.stringify(canvas));
+		    // console.log('Saving drawing to image variable...');
+		    // console.log(JSON.stringify(canvas));
 		  });
 		}.bind(this));
 
