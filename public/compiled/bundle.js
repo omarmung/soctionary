@@ -28147,6 +28147,17 @@
 	var json = '{"objects":[{"type":"rect","originX":"center","originY":"center","left":300,"top":150,"width":150,"height":150,"fill":"#29477F","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":{"color":"rgba(94, 128, 191, 0.5)","blur":5,"offsetX":10,"offsetY":10},"visible":true,"clipTo":null,"rx":0,"ry":0,"x":0,"y":0},{"type":"circle","originX":"center","originY":"center","left":300,"top":400,"width":200,"height":200,"fill":"rgb(166,111,213)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":{"color":"#5b238A","blur":20,"offsetX":-20,"offsetY":-10},"visible":true,"clipTo":null,"radius":100}],"background":""}';
 	
 	//show prompt for thing
+	var Select = function Select(props) {
+		return _react2.default.createElement(
+			"div",
+			{ id: props.id, value: props.name, onClick: function onClick() {
+					return props.voting(props.id);
+				} },
+			"Working?"
+		);
+	};
+	
+	//voted is the id tag for the current voted drawing
 	
 	var Vote = function (_React$Component) {
 		_inherits(Vote, _React$Component);
@@ -28154,24 +28165,68 @@
 		function Vote(props) {
 			_classCallCheck(this, Vote);
 	
-			return _possibleConstructorReturn(this, (Vote.__proto__ || Object.getPrototypeOf(Vote)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Vote.__proto__ || Object.getPrototypeOf(Vote)).call(this, props));
+	
+			_this.state = {
+				renderInfo: []
+			};
+			return _this;
 		}
 	
 		_createClass(Vote, [{
 			key: "componentWillMount",
 			value: function componentWillMount() {
-				socket.on('vote', function (images) {
+				var info = [];
+				socket.on('vote', function (data) {
+					//time for countdown
+					var time = data.time;
+	
+					var images = [];
+					data.forEach(function (blob) {
+						console.log(blob);
+						images.push(blob.vectorDrawing);
+						info.push({
+							id: 'd' + info.length,
+							name: blob.playerName
+						});
+					});
+	
+					this.setState({
+						renderInfo: info
+					});
+	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
-					this.renderDrawings(test);
+					data.forEach(function () {});
+					this.renderDrawings(images);
 				}.bind(this));
+	
+				socket.on('countVotes', function () {
+					//Emit name voted on to server.
+					socket.emit('vote', name);
+				});
+			}
+		}, {
+			key: "chooseVote",
+			value: function chooseVote() {}
+		}, {
+			key: "voting",
+			value: function voting(id) {
+				if (!document.getElementById('voted')) {
+					document.getElementById(id).className += "voted";
+				} else {
+					document.getElementById('voted').classList.remove("voted");
+					document.getElementById(id).className += "voted";
+				}
 			}
 		}, {
 			key: "renderDrawings",
 			value: function renderDrawings(arr) {
 				// arr.forEach(function(pic) {
 				var canvas = new fabric.Canvas('test');
-				test.forEach(function (pic) {
+				var imageData = [];
+				var count = -1;
+				arr.forEach(function (pic) {
 	
 					// canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function() {
 					//     var image = new Image();
@@ -28186,7 +28241,9 @@
 						var image = new Image();
 	
 						image.src = canvas.toDataURL("image/png");
-						document.getElementById('vote').appendChild(image);
+						count++;
+						var id = 'd' + count;
+						document.getElementById(id).appendChild(image);
 						canvas.clear();
 	
 						//place image on canvas/page appropriately
@@ -28203,10 +28260,15 @@
 		}, {
 			key: "render",
 			value: function render() {
+				var _this2 = this;
+	
 				//Need to decide if we use one big canvas, or just render images of all the drawings
 				return _react2.default.createElement(
 					"div",
 					{ id: "vote" },
+					this.state.renderInfo.map(function (data) {
+						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2) });
+					}),
 					_react2.default.createElement("canvas", { id: "test", width: "1000", height: "400", display: "none" })
 				);
 			}

@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
   socket.on('name', function (name) {
     socket.name = name;
     clients[name] = 0;
-    io.emit('readyView');
+    socket.emit('readyView');
   });
 
   socket.on('ready', function () {
