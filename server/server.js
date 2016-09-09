@@ -45,13 +45,22 @@ io.on('connection', function(socket) {
     
     setTimeout(function () {
       if (!queried) {
-        drawingController.retrieveRoundsDrawings(rounds, function (images) {
-          io.sockets.emit('vote', images);
+        drawingController.retrieveRoundsDrawings(rounds, function (data) {
+          images = data;
+          var time = Math.max(10, clients.length * 2)
+          io.sockets.emit('vote', {
+            images: images,
+            time: time
+          });
+          setTimeout(function () {
+            io.sockets.emit('countVotes');
+          }, time * 1000);
         });
         queried = true;
       }
-    }, 4000);
       
+    }, 4000);
+     
   });
       
   socket.on('vote', function (name) {
@@ -62,7 +71,7 @@ io.on('connection', function(socket) {
         images[i].votes = clients[images[i][name]];
       }
       io.emit('results', images);
-    }, Math.max(10000, clients.length * 2000));
+    }, 1000);
     
   });
 
