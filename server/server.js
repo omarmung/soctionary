@@ -12,6 +12,7 @@ app.use('/static', express.static(__dirname + '/../public'));
 app.use('/static', express.static(__dirname + '/../public/node_modules/fabric/dist'));
 
 var animals = [];
+
 var clients = {};
 var rounds = 0;
 var queried = false;
