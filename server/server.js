@@ -41,7 +41,7 @@ var animals = [
   'ant',
   'caterpillar'
 ];
-
+ 
 
 var clients = {};
 var rounds = 0;
