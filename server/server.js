@@ -100,7 +100,12 @@ io.on('connection', function(socket) {
       for (var i = 0; i < images.length; i++) {
         images[i].votes = clients[images[i][name]];
       }
-      socket.emit('results', images);
+      socket.emit('results', {
+        images: images,
+        playerName: socket.name,
+        rounds: rounds,
+        wins: null
+      });
     }, 1000);
     
   });
