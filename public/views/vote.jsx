@@ -61,6 +61,10 @@ export default class Vote extends React.Component {
 			//Emit name voted on to server.
 			socket.emit('vote', name);
 		})
+			console.log('name',this.getVotedName());
+			socket.emit('vote', this.getVotedName())
+			window.location.href = '#/result' 
+		}.bind(this))
 
 
 	}
