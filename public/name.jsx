@@ -23,8 +23,10 @@ export default class Name extends React.Component {
 				<div className="user-register">
 					
 					<input type='text' id='player' placeholder='stumpy the kitty' />
-					<button value='Submit' onClick={function () {this.sendName(document.getElementById('player').value)}.bind(this)} />
-
+					<button className="btn waves-effect waves-light" value='Submit' onClick={function () {this.sendName(document.getElementById('player').value)}.bind(this)}>
+                      submit
+					</button>
+                
 				</div>
 
 

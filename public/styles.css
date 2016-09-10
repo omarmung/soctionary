@@ -86,3 +86,7 @@ span.footer-post {
     font-weight: 900;
 }
 
+button.btn.waves-effect.waves-light {
+    text-transform: lowercase;
+}
+
