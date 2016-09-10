@@ -27986,7 +27986,7 @@
 		return _react2.default.createElement(
 			"div",
 			null,
-			_react2.default.createElement("canvas", { id: "canvas", width: "1400", height: "480" })
+			_react2.default.createElement("canvas", { id: "canvas", width: "375", height: "375" })
 		);
 	};
 	
@@ -27999,7 +27999,8 @@
 			var _this = _possibleConstructorReturn(this, (Drawing.__proto__ || Object.getPrototypeOf(Drawing)).call(this, props));
 	
 			_this.state = {
-				drawCanvas: false
+				drawCanvas: false,
+				countdown: 4
 			};
 			return _this;
 		}
@@ -28037,6 +28038,15 @@
 					socket.emit('image', image);
 					window.location.href = '#/vote';
 				});
+	
+				this.setState({
+					countdown: setInterval(function () {}.bind(this), 1000)
+				});
+			}
+		}, {
+			key: "countdown",
+			value: function countdown() {
+				document.getElementsByClassName('countdown')[0].style.display = 'none';
 			}
 		}, {
 			key: "render",
@@ -28045,9 +28055,16 @@
 					"div",
 					null,
 					_react2.default.createElement(
-						"h1",
-						null,
+						"div",
+						{ className: "prompt" },
+						"Draw a ",
 						window.Animal
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "countdown" },
+						" Start drawing in ",
+						this.state.countdown ? this.countdown : this.state.countdown
 					),
 					this.state.drawCanvas ? _react2.default.createElement(Board, null) : null
 				);
@@ -28169,6 +28186,7 @@
 	
 			_this.state = {
 				renderInfo: []
+	
 			};
 			return _this;
 		}
@@ -28182,7 +28200,7 @@
 					var time = data.time;
 	
 					var images = [];
-					data.forEach(function (blob) {
+					data.images.forEach(function (blob) {
 						console.log(blob);
 						images.push(blob.vectorDrawing);
 						info.push({
@@ -28197,7 +28215,6 @@
 	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
-					data.forEach(function () {});
 					this.renderDrawings(images);
 				}.bind(this));
 	
@@ -28212,12 +28229,10 @@
 		}, {
 			key: "voting",
 			value: function voting(id) {
-				if (!document.getElementById('voted')) {
-					document.getElementById(id).className += "voted";
-				} else {
-					document.getElementById('voted').classList.remove("voted");
-					document.getElementById(id).className += "voted";
+				if (document.getElementsByClassName('voted')[0]) {
+					document.getElementsByClassName('voted')[0].classList.remove("voted");
 				}
+				document.getElementById(id).className += "voted";
 			}
 		}, {
 			key: "renderDrawings",
