@@ -5,7 +5,8 @@ exports.addDrawing = function (drawing) {
   var newDrawing = new Drawing ({
     playerName: drawing.playerName,
     roundId: drawing.roundId,
-    vectorDrawing: drawing.vectorDrawing
+    vectorDrawing: drawing.vectorDrawing,
+    voteCount: 0
   }).save(function (err) {
     if (err) {
       console.log(err);
