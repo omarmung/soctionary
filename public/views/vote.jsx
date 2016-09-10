@@ -2,7 +2,7 @@ import React from 'react'
 
 //show prompt for thing
 var Select = (props) => (
-	<div id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
+	<div className='getouttahere'id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
 	</div>
 	)
 
@@ -22,7 +22,7 @@ export default class Vote extends React.Component {
 		socket.on('vote', function (data) {
 			//time for countdown
 			var time = data.time;
-
+			console.log('data',data)
 			var images = [];
 			data.images.forEach( function(blob) {
 				images.push(blob.vectorDrawing);
@@ -36,7 +36,7 @@ export default class Vote extends React.Component {
 			this.setState({
 				renderInfo: info
 			})
-
+			console.log(this.state.renderInfo)
 
 		  // redirect to voting view
 		  // images is an array of JSON.stringify(canvas) objects to vote on
@@ -50,15 +50,16 @@ export default class Vote extends React.Component {
 			//Emit name voted on to server.
 			console.log('name',this.getVotedName());
 			socket.emit('vote', this.getVotedName())
+			var node = document.getElementById('vote');
+			while(node.firstChild) {
+				node.removeChild(node.firstChild);
+			}
 			window.location.href = '#/result' 
 		}.bind(this))
 
 
 	} 
 
-	chooseVote(){
-	   
-	}
 
 
 	getVotedName() {
@@ -110,7 +111,6 @@ export default class Vote extends React.Component {
 		// })
 				
 			})
-			canvas.dispose();
 			// var parent = document.getElementById("vote");
 			// var child = document.getElementById("test");
 			// parent.removeChild(child);
@@ -125,7 +125,6 @@ export default class Vote extends React.Component {
 				{this.state.renderInfo.map((data) => 
 					<Select id={data.id} name = {data.name} voting={this.voting.bind(this)}/>
 				)}
-					<canvas id="test" width="1000" height="400" display="none"></canvas>
 
 			</div>
 

@@ -47,13 +47,15 @@ export default class Drawing extends React.Component {
 		    // console.log('Saving drawing to image variable...');
 		    // console.log(JSON.stringify(canvas));
 		  });
+
+			socket.on('end', function () {
+			  //send image to server
+
+			  socket.emit('image', image); 
+			  window.location.href = '#/vote' 
+			}.bind(this));
 		}.bind(this));
 
-		socket.on('end', function () {
-		  //send image to server
-		  socket.emit('image', image); 
-		  window.location.href = '#/vote' 
-		});
 
 		// start the countdown
 		// this.countDown();

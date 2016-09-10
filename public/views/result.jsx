@@ -89,7 +89,6 @@ export default class Result extends React.Component {
 		// })
 				
 			})
-			canvas.dispose();
 			// var parent = document.getElementById("vote");
 			// var child = document.getElementById("test");
 			// parent.removeChild(child);
@@ -104,7 +103,6 @@ export default class Result extends React.Component {
 				{this.state.renderInfo.map((data) => 
 					<Player id={data.id} name = {data.name} votes={data.votes}/>
 				)}
-				<canvas id="test" width="1000" height="400" display="none"></canvas>
 				<button onClick={this.goAgain}>Play again?</button>
 
 			</div>

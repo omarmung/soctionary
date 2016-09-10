@@ -28080,7 +28080,6 @@
 					//canvas.renderAll.bind(canvas)
 					// })
 				});
-				canvas.dispose();
 				// var parent = document.getElementById("vote");
 				// var child = document.getElementById("test");
 				// parent.removeChild(child);
@@ -28095,7 +28094,6 @@
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes });
 					}),
-					_react2.default.createElement('canvas', { id: 'test', width: '1000', height: '400', display: 'none' }),
 					_react2.default.createElement(
 						'button',
 						{ onClick: this.goAgain },
@@ -28139,7 +28137,7 @@
 	
 	//show prompt for thing
 	var Select = function Select(props) {
-		return _react2.default.createElement('div', { id: props.id, value: props.name, onClick: function onClick() {
+		return _react2.default.createElement('div', { className: 'getouttahere', id: props.id, value: props.name, onClick: function onClick() {
 				return props.voting(props.id);
 			} });
 	};
@@ -28168,7 +28166,7 @@
 				socket.on('vote', function (data) {
 					//time for countdown
 					var time = data.time;
-	
+					console.log('data', data);
 					var images = [];
 					data.images.forEach(function (blob) {
 						images.push(blob.vectorDrawing);
@@ -28181,6 +28179,7 @@
 					this.setState({
 						renderInfo: info
 					});
+					console.log(this.state.renderInfo);
 	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
@@ -28191,12 +28190,13 @@
 					//Emit name voted on to server.
 					console.log('name', this.getVotedName());
 					socket.emit('vote', this.getVotedName());
+					var node = document.getElementById('vote');
+					while (node.firstChild) {
+						node.removeChild(node.firstChild);
+					}
 					window.location.href = '#/result';
 				}.bind(this));
 			}
-		}, {
-			key: 'chooseVote',
-			value: function chooseVote() {}
 		}, {
 			key: 'getVotedName',
 			value: function getVotedName() {
@@ -28248,7 +28248,6 @@
 					//canvas.renderAll.bind(canvas)
 					// })
 				});
-				canvas.dispose();
 				// var parent = document.getElementById("vote");
 				// var child = document.getElementById("test");
 				// parent.removeChild(child);
@@ -28264,8 +28263,7 @@
 					{ id: 'vote' },
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2) });
-					}),
-					_react2.default.createElement('canvas', { id: 'test', width: '1000', height: '400', display: 'none' })
+					})
 				);
 			}
 		}]);
