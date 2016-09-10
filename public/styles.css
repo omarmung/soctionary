@@ -90,11 +90,6 @@ button.btn.waves-effect.waves-light {
     text-transform: lowercase;
 }
 
-
-.user-register.z-depth-1 {
-    margin-top: 40px;
-}
-
 input#player::-webkit-input-placeholder {
     font-size: 30px;
     margin-top: 44px;
@@ -121,3 +116,12 @@ input#player::-webkit-input-placeholder {
     border: 5px solid gold;
 }
 
+.mainbody {
+    top: 110px;
+    position: absolute;
+    bottom: 75px;
+}
+
+.mainbody.valign-wrapper {
+    margin-top: -40px;
+}
