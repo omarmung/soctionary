@@ -1,7 +1,7 @@
 var Drawing = require('./Drawing');
 
 exports.addDrawing = function (drawing) {
-  console.log(drawing);
+  //console.log(drawing);
   var newDrawing = new Drawing ({
     playerName: drawing.playerName,
     roundId: drawing.roundId,

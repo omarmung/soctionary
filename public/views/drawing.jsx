@@ -16,7 +16,14 @@ export default class Drawing extends React.Component {
 	}
 
 	componentWillMount() {
+<<<<<<< d29043481d265c780f4c55fc105f6b0d78efbe3c
     console.log('countdown componentWillMount: ' + this.state.myCountDown);
+=======
+		this.setState({
+			drawCanvas: false
+		})
+
+>>>>>>> Used to merge new server
 		// create canvas
 		var image = null;
 
@@ -40,13 +47,15 @@ export default class Drawing extends React.Component {
 		    // console.log('Saving drawing to image variable...');
 		    // console.log(JSON.stringify(canvas));
 		  });
+
+			socket.on('end', function () {
+			  //send image to server
+
+			  socket.emit('image', image); 
+			  window.location.href = '#/vote' 
+			}.bind(this));
 		}.bind(this));
 
-		socket.on('end', function () {
-		  //send image to server
-		  socket.emit('image', image); 
-		  window.location.href = '#/vote' 
-		});
 
 		// start the countdown
 		// this.countDown();
