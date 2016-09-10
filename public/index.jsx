@@ -6,7 +6,6 @@ import Ready from './views/ready.jsx'
 import Drawing from './views/drawing.jsx'
 import Result from './views/result.jsx'
 import Vote from './views/vote.jsx'
-import Countdown from './views/countdown.jsx'
 
 
  
@@ -17,6 +16,5 @@ render((
     <Route path="/drawing" component={Drawing}/>
     <Route path="/vote" component={Vote}/>
     <Route path="/result" component={Result}/>
-    <Route path="/countdown" component={Countdown}/>
   </Router>
 ), document.getElementById('app'))
