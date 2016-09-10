@@ -27871,7 +27871,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'user-register' },
+					{ className: 'user-register z-depth-1' },
 					_react2.default.createElement('input', { type: 'text', id: 'player', placeholder: 'stumpy the kitty' }),
 					_react2.default.createElement(
 						'button',

@@ -20,13 +20,14 @@ export default class Name extends React.Component {
 
 	render() {
 		return (
-				<div className="user-register">
+			    
+				<div className="user-register z-depth-1">
 					
 					<input type='text' id='player' placeholder='stumpy the kitty' />
 					<button className="btn waves-effect waves-light" value='Submit' onClick={function () {this.sendName(document.getElementById('player').value)}.bind(this)}>
                       submit
 					</button>
-                
+
 				</div>
 
 
