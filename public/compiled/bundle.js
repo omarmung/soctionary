@@ -27945,15 +27945,15 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'readyScreen' },
 					_react2.default.createElement(
 						'h1',
-						null,
+						{ className: 'tlt' },
 						' Everyone Ready? '
 					),
 					_react2.default.createElement(
 						'button',
-						{ value: 'Press this button when everyone is in', onClick: this.start },
+						{ className: 'btn waves-effect waves-light', value: 'Press this button when everyone is in', onClick: this.start },
 						'Press this button when everyone is ready'
 					)
 				);
