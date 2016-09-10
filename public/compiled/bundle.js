@@ -24950,7 +24950,7 @@
 	          if (error) {
 	            listener(error);
 	          } else if (redirectLocation) {
-	            history.transitionTo(redirectLocation);
+	            history.replace(redirectLocation);
 	          } else if (nextState) {
 	            listener(null, nextState);
 	          } else {
@@ -26151,7 +26151,7 @@
 	  },
 	
 	  propTypes: {
-	    to: oneOfType([string, object]).isRequired,
+	    to: oneOfType([string, object]),
 	    query: object,
 	    hash: string,
 	    state: object,
@@ -26212,6 +26212,11 @@
 	
 	
 	    if (router) {
+	      // If user does not specify a `to` prop, return an empty anchor tag.
+	      if (to == null) {
+	        return _react2.default.createElement('a', props);
+	      }
+	
 	      var location = createLocationDescriptor(to, { query: query, hash: hash, state: state });
 	      props.href = router.createHref(location);
 	
@@ -27866,11 +27871,15 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'user-register' },
+					{ className: 'user-register z-depth-1' },
 					_react2.default.createElement('input', { type: 'text', id: 'player', placeholder: 'stumpy the kitty' }),
-					_react2.default.createElement('button', { value: 'Submit', onClick: function () {
-							this.sendName(document.getElementById('player').value);
-						}.bind(this) })
+					_react2.default.createElement(
+						'button',
+						{ className: 'btn waves-effect waves-light', value: 'Submit', onClick: function () {
+								this.sendName(document.getElementById('player').value);
+							}.bind(this) },
+						'submit'
+					)
 				);
 			}
 		}]);
