@@ -108,3 +108,13 @@ input#player::-webkit-input-placeholder {
 .logo {
     text-align: center;
 }
+
+.readyScreen {
+    text-align: center;
+}
+
+.readyScreen h1 {
+    font-weight: 900;
+}
+
+
