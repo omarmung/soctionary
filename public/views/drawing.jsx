@@ -11,12 +11,12 @@ export default class Drawing extends React.Component {
 		super(props)
 		this.state = {
 			drawCanvas: false,
-			countdown: 4
+			remainingTime: 4
 		}
 	}
 
 	componentWillMount() {
-
+    console.log('countdown componentWillMount: ' + this.state.myCountDown);
 		// create canvas
 		var image = null;
 
@@ -48,25 +48,43 @@ export default class Drawing extends React.Component {
 		  window.location.href = '#/vote' 
 		});
 
-		this.setState({
-			countdown: setInterval(function() {
-				
-			}.bind(this),1000)
-		})
+		// start the countdown
+		// this.countDown();
+		
 	}
 
+	componentDidMount() {
+		console.log('countdown started...');
+		this.timer = setInterval(this.tick.bind(this), 1000)
+	}
 
+	componentWillUnmount() {
+		clearInterval(this.timer);
+	}
 
-	countdown() {
-		document.getElementsByClassName('countdown')[0].style.display = 'none';
+  tick() {
+  	this.setState({remainingTime: this.state.remainingTime - 1});
+  	console.log('tick: ' + this.state.remainingTime);
+    if (this.state.remainingTime <= 1) {
+    	clearInterval(this.timer);
+    	this.setState({remainingTime: 'Draw!'});
+    	setTimeout(this.hideCountDown.bind(this), 1000);
+      ;
+    }
+  }
+
+	hideCountDown() {
+		document.getElementsByClassName('drawingCountdown')[0].style.display = 'none';
 	}
 
 	render() {
 		return (
 			<div>
-			<div className="prompt">Draw a {window.Animal}</div>
-			<div className="countdown"> Start drawing in {this.state.countdown ? this.countdown : this.state.countdown}</div>
-			{this.state.drawCanvas ? <Board /> : null}
+				<div className='drawingCountdown'>
+					<div className="prompt">Draw a {window.Animal} in...</div>
+					<div className="countdown"> {this.state.remainingTime} </div>
+				</div>
+				{this.state.drawCanvas ? <Board /> : null}
 			</div>
 
 			)
