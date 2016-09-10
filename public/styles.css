@@ -1,23 +1,24 @@
-.container {
-	background-color: cyan;
-}
-
 .header {
-    height: 200px;
+    height: 110px;
     background: cyan;
-    border-bottom: 1px solid #eae8e8;
+    border-bottom: 20px solid #00A6A6;
 }
 
 .canvas-container {
-	background-color: white;
+    background-color: white;
   border-style: solid;
   border-width: 5px;
 }
 
-.footer {
-	
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
+main {
+  flex: 1 0 auto;
+}
 .fake-canvas {
     min-height: 800px;
     width: 800px;
@@ -31,11 +32,57 @@
 }
 
 .logo img {
-    width: 385px;
-    padding-left: 20px;
+    width: 160px;
 }
 
 img.animated-logo {
-    margin-left: 70px;
-    margin-right: -35px;
+    margin-right: -8px;
 }
+
+input#player {
+    font-size: 54px;
+    font-weight: 900;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.user-register {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 136px;
+    padding: 32px 40px;
+    border-radius: 30px;
+    background: white;
+}
+
+input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+    height: 7rem;
+}
+
+.container {
+    font-size: 10px;
+    text-align: center;
+    color: #fff;
+}
+
+
+footer.page-footer {
+    margin-top: 0px;
+    padding-top: 5px;
+    background-color: #ee6e73;
+}
+
+main {
+    flex: 1 0 auto;
+    background: #edffff;
+}
+
+span.footer-post {
+    font-weight: 900;
+}
+
