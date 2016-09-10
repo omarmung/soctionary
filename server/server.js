@@ -45,12 +45,14 @@ var animals = [
 var clients = {};
 var rounds = 0;
 var queried = false;
+var votes = {};
 var images;
 
 io.on('connection', function(socket) {
   
   socket.on('name', function (name) {
     socket.name = name;
+    votes[name] = 0;
     clients[name] = 0;
     socket.emit('readyView');
   });
@@ -77,7 +79,8 @@ io.on('connection', function(socket) {
       if (!queried) {
         drawingController.retrieveRoundsDrawings(rounds, function (data) {
           images = data;
-          var time = Math.max(10, Object.keys(clients).length * 2)
+          console.log('data', data)
+          var time = Math.max(20, Object.keys(clients).length * 2)
           console.log('time', time)
           io.emit('vote', {
             images: images,
@@ -95,16 +98,22 @@ io.on('connection', function(socket) {
   });
       
   socket.on('vote', function (name) {
+    console.log('name',name)
     clients[name]++;
+    votes[name]++;
+    console.log('client votes', clients[name])
     
     setTimeout(function () {
       for (var i = 0; i < images.length; i++) {
-        images[i].votes = clients[images[i][name]];
+          images[i]['votes'] =  votes[name]//clients[images[i].name];
+          console.log('votes', images[i]);
+          console.log('client votes',clients[name])
       }
       socket.emit('results', {
         images: images,
         playerName: socket.name,
         rounds: rounds,
+        votes:votes,
         wins: null
       });
     }, 1000);

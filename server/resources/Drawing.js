@@ -7,6 +7,7 @@ var drawingSchema = mongoose.Schema({
   voteCount: Number
 });
 
+
 var Drawing = mongoose.model('Drawing', drawingSchema);
 
 module.exports = Drawing;

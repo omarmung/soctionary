@@ -10,9 +10,14 @@ var Player = (props) => (
 export default class Result extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			renderInfo:[]
+		}
 	}
 
-	componentWillMount() {
+	componentWillMount() {		
+
+
 		var info = [];
 		socket.on('results', function (data) {
 			//time for countdown
@@ -26,14 +31,19 @@ export default class Result extends React.Component {
 				info.push({
 					id: 'd' + info.length,
 					name:blob.playerName,
-					votes:blob.votes || 0
+					votes:data.votes[blob.playerName] || 0
 					//wins:blob.roundWins 
 				})
+				console.log(info);
 			})
 
 			this.setState({
 				renderInfo: info
 			})
+
+			this.renderDrawings(images)
+
+		}.bind(this))
 
   	// listen to switch to readyView
   	socket.on('readyView', function () { 
@@ -41,6 +51,11 @@ export default class Result extends React.Component {
   	});
 
   }
+
+  goAgain() {
+  	socket.emit('again');
+  }
+
 
 
 	renderDrawings(arr){
@@ -85,10 +100,17 @@ export default class Result extends React.Component {
 
 	render() {
 		return (
-			<div>
-			  <div>We're all winners.</div>
-			  <button value="Just kidding, play again" onClick={this.sendPlayAgain}></button>
+			<div id="vote">
+				{this.state.renderInfo.map((data) => 
+					<Player id={data.id} name = {data.name} votes={data.votes}/>
+				)}
+				<canvas id="test" width="1000" height="400" display="none"></canvas>
+				<button onClick={this.goAgain}>Play again?</button>
+
 			</div>
+
+
+
 			)
 	}
 }
