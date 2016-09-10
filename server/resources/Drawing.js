@@ -4,7 +4,7 @@ var drawingSchema = mongoose.Schema({
   roundId: Number,
   vectorDrawing: String,
   playerName: String,
-  voteCount: 0
+  voteCount: Number
 });
 
 var Drawing = mongoose.model('Drawing', drawingSchema);
