@@ -77,6 +77,10 @@
 	
 	var _vote2 = _interopRequireDefault(_vote);
 	
+	var _countdown = __webpack_require__(/*! ./views/countdown.jsx */ 240);
+	
+	var _countdown2 = _interopRequireDefault(_countdown);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -86,7 +90,8 @@
 	  _react2.default.createElement(_reactRouter.Route, { path: '/ready', component: _ready2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/drawing', component: _drawing2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/vote', component: _vote2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/result', component: _result2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '/result', component: _result2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/countdown', component: _countdown2.default })
 	), document.getElementById('app'));
 
 /***/ },
@@ -27921,7 +27926,8 @@
 			value: function componentWillMount() {
 				socket.on('countdown', function (animalName) {
 					window.Animal = animalName;
-					window.location.href = '#/drawing';
+					console.log('Ready: ' + window.Animal);
+					window.location.href = '#/countdown';
 					//redirect to countdown view
 				});
 			}
@@ -28251,6 +28257,16 @@
 			key: "chooseVote",
 			value: function chooseVote() {}
 		}, {
+			key: "getVotedName",
+			value: function getVotedName() {
+	
+				if (document.getElementById('voted')) {
+					return document.getElementById('voted').getAttribute('value');
+				} else {
+					return null;
+				}
+			}
+		}, {
 			key: "voting",
 			value: function voting(id) {
 				if (document.getElementsByClassName('voted')[0]) {
@@ -28294,7 +28310,6 @@
 				// var parent = document.getElementById("vote");
 				// var child = document.getElementById("test");
 				// parent.removeChild(child);
-	
 			}
 		}, {
 			key: "render",
@@ -28317,6 +28332,123 @@
 	}(_react2.default.Component);
 	
 	exports.default = Vote;
+
+/***/ },
+/* 240 */
+/*!************************************!*\
+  !*** ./public/views/countdown.jsx ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var countdown = function (_React$Component) {
+		_inherits(countdown, _React$Component);
+	
+		function countdown(props) {
+			_classCallCheck(this, countdown);
+	
+			var _this = _possibleConstructorReturn(this, (countdown.__proto__ || Object.getPrototypeOf(countdown)).call(this, props));
+	
+			_this.state = {
+				countDown: 4
+			};
+			return _this;
+		}
+	
+		_createClass(countdown, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				socket.on('draw', function () {
+					window.location.href = '#/drawing';
+					//redirect to draw view
+				});
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				// this.startCounter(3);
+				console.log('Countdown: ' + window.Animal);
+				// this.setState({
+				// 	countDown: 3
+				// });
+			}
+	
+			// startCounter(counter) {
+			//    var counter = counter;
+	
+			//    var startCounting = function() {
+			//    	setTimeout(function() {
+			//    	  countDown(counter);
+			//    	}, 1000).bind(this);
+			//    	this.setState({
+			// 			countDown: counter
+			// 		});
+			//    }
+	
+			//    var countDown = function(counter) {
+			//    	counter = counter - 1;
+			//    	this.setState({
+			// 			countDown: counter
+			// 		});
+			// 		if (counter === 0) {
+			// 			clearTimeout(timer).bind(this);
+			// 			timer = null;
+			// 		} else {
+			// 			timer = setTimeout(function() {
+			// 			  countDown();
+			// 			  console.log('Countdown: ' + counter);
+			// 			}, 1000).bind(this);
+			// 		}
+	
+			//    }
+			//    startCounting();
+			// }
+	
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'prompt' },
+						'Draw a ',
+						window.Animal,
+						' in... '
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'countdown' },
+						this.state.countDown
+					)
+				);
+			}
+		}]);
+	
+		return countdown;
+	}(_react2.default.Component);
+	
+	exports.default = countdown;
 
 /***/ }
 /******/ ]);

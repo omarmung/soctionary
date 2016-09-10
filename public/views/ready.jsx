@@ -8,7 +8,8 @@ export default class ready extends React.Component {
 	componentWillMount() {
 		socket.on('countdown',function (animalName) {
 			window.Animal = animalName;
-			window.location.href = '#/drawing'
+			console.log('Ready: ' + window.Animal);
+			window.location.href = '#/countdown'
 		  //redirect to countdown view
 		});
 	} 
