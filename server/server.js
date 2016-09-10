@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require('express');  
 var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
@@ -41,8 +41,6 @@ var animals = [
   'ant',
   'caterpillar'
 ];
- 
-var animals = ['Pikachu'];
 
 var clients = {};
 var rounds = 0;
@@ -120,6 +118,8 @@ io.on('connection', function(socket) {
 
 });
 
+
 http.listen(port, function(data) {
   console.log('listening on ' + port);
+
 });

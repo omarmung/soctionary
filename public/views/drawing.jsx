@@ -72,8 +72,3 @@ export default class Drawing extends React.Component {
 			)
 	}
 }
-
-
-
-
-

@@ -27921,6 +27921,7 @@
 			value: function componentWillMount() {
 				socket.on('countdown', function (animalName) {
 					window.Animal = animalName;
+					console.log('Ready: ' + window.Animal);
 					window.location.href = '#/drawing';
 					//redirect to countdown view
 				});
@@ -28113,9 +28114,33 @@
 		}
 	
 		_createClass(Result, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+	
+				// listen to switch to readyView
+				socket.on('readyView', function () {
+					window.location.href = '#/ready';
+				});
+			}
+		}, {
+			key: 'sendPlayAgain',
+			value: function sendPlayAgain() {
+				// emit event to server
+				socket.emit('again');
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', null);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						null,
+						'We\'re all winners.'
+					),
+					_react2.default.createElement('button', { value: 'Just kidding, play again', onClick: this.sendPlayAgain })
+				);
 			}
 		}]);
 	
@@ -28227,6 +28252,16 @@
 			key: "chooseVote",
 			value: function chooseVote() {}
 		}, {
+			key: "getVotedName",
+			value: function getVotedName() {
+	
+				if (document.getElementById('voted')) {
+					return document.getElementById('voted').getAttribute('value');
+				} else {
+					return null;
+				}
+			}
+		}, {
 			key: "voting",
 			value: function voting(id) {
 				if (document.getElementsByClassName('voted')[0]) {
@@ -28270,7 +28305,6 @@
 				// var parent = document.getElementById("vote");
 				// var child = document.getElementById("test");
 				// parent.removeChild(child);
-	
 			}
 		}, {
 			key: "render",

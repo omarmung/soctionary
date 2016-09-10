@@ -34,7 +34,6 @@ export default class Vote extends React.Component {
 			//time for countdown
 			var time = data.time;
 
-
 			var images = [];
 			data.images.forEach( function(blob) {
 				console.log(blob);
@@ -44,6 +43,7 @@ export default class Vote extends React.Component {
 					name:blob.playerName 
 				})
 			})
+
 
 			this.setState({
 				renderInfo: info
@@ -59,7 +59,7 @@ export default class Vote extends React.Component {
 
 		socket.on('countVotes', function()  {
 			//Emit name voted on to server.
-			socket.emit('vote', name)
+			socket.emit('vote', name);
 		})
 
 
@@ -68,6 +68,17 @@ export default class Vote extends React.Component {
 	chooseVote(){
 	   
 	}
+
+
+	getVotedName() {
+
+		if (document.getElementById('voted')) {
+	   return document.getElementById('voted').getAttribute('value');
+		} else {
+     return null;
+		}
+	}
+
 
 	voting(id) {
 		if(document.getElementsByClassName('voted')[0]) {
@@ -112,8 +123,8 @@ export default class Vote extends React.Component {
 			// var child = document.getElementById("test");
 			// parent.removeChild(child);
 
+	}
 
-	};
 
 	render() {
 		//Need to decide if we use one big canvas, or just render images of all the drawings
@@ -131,4 +142,3 @@ export default class Vote extends React.Component {
 			)
 	}
 }
-
