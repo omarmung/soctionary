@@ -16,14 +16,10 @@ export default class Drawing extends React.Component {
 	}
 
 	componentWillMount() {
-<<<<<<< d29043481d265c780f4c55fc105f6b0d78efbe3c
-    console.log('countdown componentWillMount: ' + this.state.myCountDown);
-=======
 		this.setState({
 			drawCanvas: false
 		})
 
->>>>>>> Used to merge new server
 		// create canvas
 		var image = null;
 

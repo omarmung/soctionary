@@ -65,7 +65,7 @@
 	
 	var _ready2 = _interopRequireDefault(_ready);
 	
-	var _drawing = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./views/drawing.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _drawing = __webpack_require__(/*! ./views/drawing.jsx */ 237);
 	
 	var _drawing2 = _interopRequireDefault(_drawing);
 	
@@ -24950,7 +24950,7 @@
 	          if (error) {
 	            listener(error);
 	          } else if (redirectLocation) {
-	            history.transitionTo(redirectLocation);
+	            history.replace(redirectLocation);
 	          } else if (nextState) {
 	            listener(null, nextState);
 	          } else {
@@ -26151,7 +26151,7 @@
 	  },
 	
 	  propTypes: {
-	    to: oneOfType([string, object]).isRequired,
+	    to: oneOfType([string, object]),
 	    query: object,
 	    hash: string,
 	    state: object,
@@ -26212,6 +26212,11 @@
 	
 	
 	    if (router) {
+	      // If user does not specify a `to` prop, return an empty anchor tag.
+	      if (to == null) {
+	        return _react2.default.createElement('a', props);
+	      }
+	
 	      var location = createLocationDescriptor(to, { query: query, hash: hash, state: state });
 	      props.href = router.createHref(location);
 	
@@ -27960,7 +27965,159 @@
 	exports.default = ready;
 
 /***/ },
-/* 237 */,
+/* 237 */
+/*!**********************************!*\
+  !*** ./public/views/drawing.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Board = function Board() {
+		return _react2.default.createElement(
+			"div",
+			null,
+			_react2.default.createElement("canvas", { id: "canvas", width: "375", height: "375" })
+		);
+	};
+	
+	var Drawing = function (_React$Component) {
+		_inherits(Drawing, _React$Component);
+	
+		function Drawing(props) {
+			_classCallCheck(this, Drawing);
+	
+			var _this = _possibleConstructorReturn(this, (Drawing.__proto__ || Object.getPrototypeOf(Drawing)).call(this, props));
+	
+			_this.state = {
+				drawCanvas: false,
+				remainingTime: 4
+			};
+			return _this;
+		}
+	
+		_createClass(Drawing, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				this.setState({
+					drawCanvas: false
+				});
+	
+				// create canvas
+				var image = null;
+	
+				socket.on('draw', function () {
+	
+					this.setState({
+						drawCanvas: true
+					});
+	
+					var canvas = new fabric.Canvas('canvas', {
+						isDrawingMode: true
+					});
+	
+					// set brush size
+					canvas.freeDrawingBrush.width = 10;
+	
+					//redirect to draw view
+					canvas.on('path:created', function (options) {
+						image = JSON.stringify(canvas);
+						// console.log('Saving drawing to image variable...');
+						// console.log(JSON.stringify(canvas));
+					});
+	
+					socket.on('end', function () {
+						//send image to server
+	
+						socket.emit('image', image);
+						window.location.href = '#/vote';
+					}.bind(this));
+				}.bind(this));
+	
+				// start the countdown
+				// this.countDown();
+			}
+		}, {
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				console.log('countdown started...');
+				this.timer = setInterval(this.tick.bind(this), 1000);
+			}
+		}, {
+			key: "componentWillUnmount",
+			value: function componentWillUnmount() {
+				clearInterval(this.timer);
+			}
+		}, {
+			key: "tick",
+			value: function tick() {
+				this.setState({ remainingTime: this.state.remainingTime - 1 });
+				console.log('tick: ' + this.state.remainingTime);
+				if (this.state.remainingTime <= 1) {
+					clearInterval(this.timer);
+					this.setState({ remainingTime: 'Draw!' });
+					setTimeout(this.hideCountDown.bind(this), 1000);
+					;
+				}
+			}
+		}, {
+			key: "hideCountDown",
+			value: function hideCountDown() {
+				document.getElementsByClassName('drawingCountdown')[0].style.display = 'none';
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement(
+						"div",
+						{ className: "drawingCountdown" },
+						_react2.default.createElement(
+							"div",
+							{ className: "prompt" },
+							"Draw a ",
+							window.Animal,
+							" in..."
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "countdown" },
+							" ",
+							this.state.remainingTime,
+							" "
+						)
+					),
+					this.state.drawCanvas ? _react2.default.createElement(Board, null) : null
+				);
+			}
+		}]);
+	
+		return Drawing;
+	}(_react2.default.Component);
+	
+	exports.default = Drawing;
+
+/***/ },
 /* 238 */
 /*!*********************************!*\
   !*** ./public/views/result.jsx ***!
@@ -28137,7 +28294,7 @@
 	
 	//show prompt for thing
 	var Select = function Select(props) {
-		return _react2.default.createElement('div', { className: 'getouttahere', id: props.id, value: props.name, onClick: function onClick() {
+		return _react2.default.createElement('div', { id: props.id, value: props.name, onClick: function onClick() {
 				return props.voting(props.id);
 			} });
 	};
@@ -28190,10 +28347,6 @@
 					//Emit name voted on to server.
 					console.log('name', this.getVotedName());
 					socket.emit('vote', this.getVotedName());
-					var node = document.getElementById('vote');
-					while (node.firstChild) {
-						node.removeChild(node.firstChild);
-					}
 					window.location.href = '#/result';
 				}.bind(this));
 			}

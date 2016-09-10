@@ -2,7 +2,7 @@ import React from 'react'
 
 //show prompt for thing
 var Select = (props) => (
-	<div className='getouttahere'id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
+	<div id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
 	</div>
 	)
 
@@ -50,10 +50,6 @@ export default class Vote extends React.Component {
 			//Emit name voted on to server.
 			console.log('name',this.getVotedName());
 			socket.emit('vote', this.getVotedName())
-			var node = document.getElementById('vote');
-			while(node.firstChild) {
-				node.removeChild(node.firstChild);
-			}
 			window.location.href = '#/result' 
 		}.bind(this))
 
