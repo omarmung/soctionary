@@ -1,15 +1,17 @@
 import React from 'react'
 var Board = () => (
 	<div>
-		<canvas id="canvas" width="1400" height="480"></canvas>
+		<canvas id="canvas" width="375" height="375"></canvas>
 		</div>
 	)
+
 
 export default class Drawing extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			drawCanvas: false
+			drawCanvas: false,
+			countdown: 4
 		}
 	}
 
@@ -17,6 +19,7 @@ export default class Drawing extends React.Component {
 
 		// create canvas
 		var image = null;
+
 
 		socket.on('draw', function () {
 
@@ -44,14 +47,25 @@ export default class Drawing extends React.Component {
 		  socket.emit('image', image); 
 		  window.location.href = '#/vote' 
 		});
+
+		this.setState({
+			countdown: setInterval(function() {
+				
+			}.bind(this),1000)
+		})
 	}
 
 
 
+	countdown() {
+		document.getElementsByClassName('countdown')[0].style.display = 'none';
+	}
+
 	render() {
 		return (
 			<div>
-			<h1>{window.Animal}</h1>
+			<div className="prompt">Draw a {window.Animal}</div>
+			<div className="countdown"> Start drawing in {this.state.countdown ? this.countdown : this.state.countdown}</div>
 			{this.state.drawCanvas ? <Board /> : null}
 			</div>
 

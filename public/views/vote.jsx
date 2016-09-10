@@ -23,7 +23,8 @@ export default class Vote extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			renderInfo: []
+			renderInfo: [],
+
 		}
 	}
 
@@ -35,7 +36,7 @@ export default class Vote extends React.Component {
 
 
 			var images = [];
-			data.forEach( function(blob) {
+			data.images.forEach( function(blob) {
 				console.log(blob);
 				images.push(blob.vectorDrawing);
 				info.push({
@@ -51,8 +52,6 @@ export default class Vote extends React.Component {
 
 		  // redirect to voting view
 		  // images is an array of JSON.stringify(canvas) objects to vote on
-		  data.forEach(function() {
-		  })
 		  this.renderDrawings(images);
 
 
@@ -71,13 +70,10 @@ export default class Vote extends React.Component {
 	}
 
 	voting(id) {
-		if(!document.getElementById('voted')) {
-			document.getElementById(id).className += "voted"
-		} else
-		{
-			document.getElementById('voted').classList.remove("voted")
-			document.getElementById(id).className += "voted"
+		if(document.getElementsByClassName('voted')[0]) {
+			document.getElementsByClassName('voted')[0].classList.remove("voted")
 		}
+		document.getElementById(id).className += "voted"
 	}
 
 	renderDrawings(arr){
