@@ -1,11 +1,9 @@
 var express = require('express');  
-var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var db = require('./db');
 var drawingController = require('./resources/drawingController');
-var path = require('path');
 var port = process.env.PORT || 8080;
 
 app.use(express.static('public'));
@@ -39,7 +37,9 @@ var animals = [
   'bear',
   'spider',
   'ant',
-  'caterpillar'
+  'caterpillar',
+  'porcupine',
+  'anteater'
 ];
 
 var clients = {};
