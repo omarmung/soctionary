@@ -42,7 +42,6 @@ var animals = [
   'caterpillar'
 ];
 
-
 var clients = {};
 var rounds = 0;
 var queried = false;
