@@ -117,4 +117,7 @@ input#player::-webkit-input-placeholder {
     font-weight: 900;
 }
 
+.voted {
+    border: 5px solid gold;
+}
 
