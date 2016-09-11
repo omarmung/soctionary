@@ -24950,7 +24950,7 @@
 	          if (error) {
 	            listener(error);
 	          } else if (redirectLocation) {
-	            history.replace(redirectLocation);
+	            history.transitionTo(redirectLocation);
 	          } else if (nextState) {
 	            listener(null, nextState);
 	          } else {
@@ -26151,7 +26151,7 @@
 	  },
 	
 	  propTypes: {
-	    to: oneOfType([string, object]),
+	    to: oneOfType([string, object]).isRequired,
 	    query: object,
 	    hash: string,
 	    state: object,
@@ -26212,11 +26212,6 @@
 	
 	
 	    if (router) {
-	      // If user does not specify a `to` prop, return an empty anchor tag.
-	      if (to == null) {
-	        return _react2.default.createElement('a', props);
-	      }
-	
 	      var location = createLocationDescriptor(to, { query: query, hash: hash, state: state });
 	      props.href = router.createHref(location);
 	
@@ -28046,6 +28041,7 @@
 	
 					socket.on('end', function () {
 						//send image to server
+						console.log(image);
 	
 						socket.emit('image', image);
 						window.location.href = '#/vote';
@@ -28148,7 +28144,8 @@
 		return _react2.default.createElement(
 			'div',
 			{ id: props.id },
-			'User ' + props.name + ' had ' + props.votes + ' votes. '
+			'User ' + props.name + ' had ' + props.votes + ' votes. ',
+			_react2.default.createElement('img', { src: props.image })
 		);
 	};
 	
@@ -28177,22 +28174,35 @@
 	
 					var images = [];
 					data.images.forEach(function (blob) {
-						console.log(blob);
-						images.push(blob.vectorDrawing);
-						info.push({
-							id: 'd' + info.length,
-							name: blob.playerName,
-							votes: data.votes[blob.playerName] || 0
-							//wins:blob.roundWins 
+						var canvas = new fabric.Canvas('test');
+						// images.push(blob.vectorDrawing);
+						canvas.loadFromJSON(blob.vectorDrawing, function () {
+							// canvas.renderAll.bind(canvas)
+							// var blob = JSON.parse(json);
+	
+							var image = canvas.toDataURL({
+								format: 'image/png',
+								multiplier: 0.25,
+								width: 375,
+								height: 375
+							});
+							canvas.clear();
+							info.push({
+								id: 'd' + info.length,
+								name: blob.playerName,
+								votes: data.votes[blob.playerName] || 0,
+								image: image
+								//wins:blob.roundWins 
+							});
 						});
-						console.log(info);
 					});
 	
+					console.log(info);
 					this.setState({
 						renderInfo: info
 					});
 	
-					this.renderDrawings(images);
+					//this.renderDrawings(images)
 				}.bind(this));
 	
 				// listen to switch to readyView
@@ -28206,55 +28216,13 @@
 				socket.emit('again');
 			}
 		}, {
-			key: 'renderDrawings',
-			value: function renderDrawings(arr) {
-				// arr.forEach(function(pic) {
-				var canvas = new fabric.Canvas('test');
-				var imageData = [];
-				var count = -1;
-				arr.forEach(function (pic) {
-	
-					// canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function() {
-					//     var image = new Image();
-					//     var drawings = document.getElementById('test');
-					//     image.src = drawings.toDataUrl("image/png");
-					//     document.getElementById('vote').appendChild(image);
-					// });
-	
-					canvas.loadFromJSON(pic, function () {
-						// canvas.renderAll.bind(canvas)
-						// var blob = JSON.parse(json);
-						var image = new Image();
-	
-						image.src = canvas.toDataURL({
-							format: 'image/png',
-							multiplier: 0.25,
-							width: 375,
-							height: 375
-						});
-						count++;
-						var id = 'd' + count;
-						document.getElementById(id).appendChild(image);
-						canvas.clear();
-	
-						//place image on canvas/page appropriately
-					});
-					//canvas.renderAll.bind(canvas)
-					// })
-				});
-				// var parent = document.getElementById("vote");
-				// var child = document.getElementById("test");
-				// parent.removeChild(child);
-	
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
 					{ id: 'vote' },
 					this.state.renderInfo.map(function (data) {
-						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes });
+						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image });
 					}),
 					_react2.default.createElement(
 						'button',
@@ -28299,9 +28267,13 @@
 	
 	//show prompt for thing
 	var Select = function Select(props) {
-		return _react2.default.createElement('div', { id: props.id, value: props.name, onClick: function onClick() {
-				return props.voting(props.id);
-			} });
+		return _react2.default.createElement(
+			'div',
+			{ id: props.id, value: props.name, onClick: function onClick() {
+					return props.voting(props.id);
+				} },
+			_react2.default.createElement('img', { src: props.image })
+		);
 	};
 	
 	//voted is the id tag for the current voted drawing
@@ -28328,24 +28300,37 @@
 				socket.on('vote', function (data) {
 					//time for countdown
 					var time = data.time;
+					var canvas = new fabric.Canvas('test');
 					console.log('data', data);
-					var images = [];
+					//var images = [];
 					data.images.forEach(function (blob) {
-						images.push(blob.vectorDrawing);
-						info.push({
-							id: 'd' + info.length,
-							name: blob.playerName
+						//images.push(blob.vectorDrawing);
+						canvas.loadFromJSON(blob.vectorDrawing, function () {
+	
+							var image = canvas.toDataURL({
+								format: 'image/png',
+								multiplier: 0.25,
+								width: 375,
+								height: 375
+							});
+							info.push({
+								id: 'd' + info.length,
+								name: blob.playerName,
+								image: image
+							});
+							canvas.clear();
 						});
 					});
 	
 					this.setState({
 						renderInfo: info
 					});
-					console.log(this.state.renderInfo);
+					console.log('render images', this.state.renderInfo);
 	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
-					this.renderDrawings(images);
+					//this.renderDrawings(images);
+	
 				}.bind(this));
 	
 				socket.on('countVotes', function () {
@@ -28374,48 +28359,6 @@
 				document.getElementById(id).className += "voted";
 			}
 		}, {
-			key: 'renderDrawings',
-			value: function renderDrawings(arr) {
-				// arr.forEach(function(pic) {
-	
-				var canvas = new fabric.Canvas('test');
-				var imageData = [];
-				var count = -1;
-				arr.forEach(function (pic) {
-	
-					// canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function() {
-					//     var image = new Image();
-					//     var drawings = document.getElementById('test');
-					//     image.src = drawings.toDataUrl("image/png");
-					//     document.getElementById('vote').appendChild(image);
-					// });
-	
-					canvas.loadFromJSON(pic, function () {
-						// canvas.renderAll.bind(canvas)
-						// var blob = JSON.parse(json);
-						var image = new Image();
-	
-						image.src = canvas.toDataURL({
-							format: 'image/png',
-							multiplier: 0.25,
-							width: 375,
-							height: 375
-						});
-						count++;
-						var id = 'd' + count;
-						document.getElementById(id).appendChild(image);
-						canvas.clear();
-	
-						//place image on canvas/page appropriately
-					});
-					//canvas.renderAll.bind(canvas)
-					// })
-				});
-				// var parent = document.getElementById("vote");
-				// var child = document.getElementById("test");
-				// parent.removeChild(child);
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				var _this2 = this;
@@ -28425,7 +28368,7 @@
 					'div',
 					{ id: 'vote' },
 					this.state.renderInfo.map(function (data) {
-						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2) });
+						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2), image: data.image });
 					})
 				);
 			}
