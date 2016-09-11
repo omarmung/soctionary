@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var db = require('./db');
 var drawingController = require('./resources/drawingController');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 1337;
 
 app.use(express.static('public'));
 app.use('/static', express.static(__dirname + '/../public'));
@@ -79,9 +79,9 @@ io.on('connection', function(socket) {
       if (!queried) {
         drawingController.retrieveRoundsDrawings(rounds, function (data) {
           images = data;
-          console.log('data', data)
-          var time = Math.max(20, Object.keys(clients).length * 2)
-          console.log('time', time)
+          console.log('data', data);
+          var time = Math.max(20, Object.keys(clients).length * 2);
+          console.log('time', time);
           io.emit('vote', {
             images: images,
             time: time
@@ -98,22 +98,21 @@ io.on('connection', function(socket) {
   });
       
   socket.on('vote', function (name) {
-    console.log('name',name)
+    drawingController.updateVoteCount(rounds, name);
+    console.log('name', name);
     clients[name]++;
     votes[name]++;
-    console.log('client votes', clients[name])
+    console.log('client votes', clients[name]);
     
     setTimeout(function () {
       for (var i = 0; i < images.length; i++) {
-          images[i]['votes'] =  votes[name]//clients[images[i].name];
-          console.log('votes', images[i]);
-          console.log('client votes',clients[name])
+        images[i]['votes'] =  votes[name]; // clients[images[i].name];
       }
       socket.emit('results', {
         images: images,
         playerName: socket.name,
         rounds: rounds,
-        votes:votes,
+        votes: votes,
         wins: null
       });
     }, 1000);

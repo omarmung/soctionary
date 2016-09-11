@@ -24,3 +24,15 @@ exports.retrieveRoundsDrawings = function (round, cb) {
     }
   });
 };
+
+exports.updateVoteCount = function (rounds, name) {
+  console.log('operating on user', name);
+  Drawing.update({roundId: rounds, playerName: name}, {$inc: {voteCount: 1} }, function (err, drawing) {
+    if (err) {
+      console.log(err); 
+    } else {
+      console.log('RESULT AFTER UDPATE IS', drawing);
+      console.log('AND THIS WAS INCREMENTED IN ROUND', rounds, 'FOR PLAYER', name);
+    }
+  });
+};
