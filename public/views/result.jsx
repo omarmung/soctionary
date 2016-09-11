@@ -58,9 +58,8 @@ export default class Result extends React.Component {
 			this.setState({
 				renderInfo: info
 			})
-
 			//this.renderDrawings(images)
-
+			socket.removeListener('results');
 		}.bind(this))
 
   	// listen to switch to readyView
@@ -73,7 +72,6 @@ export default class Result extends React.Component {
   goAgain() {
   	socket.emit('again');
   }
-
 
 
 

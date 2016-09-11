@@ -28018,6 +28018,7 @@
 	
 				// create canvas
 				var image = null;
+				var canvas = null;
 	
 				socket.on('draw', function () {
 	
@@ -28025,21 +28026,23 @@
 						drawCanvas: true
 					});
 	
-					var canvas = new fabric.Canvas('canvas', {
+					canvas = new fabric.Canvas('canvas', {
 						isDrawingMode: true
 					});
 	
 					// set brush size
 					canvas.freeDrawingBrush.width = 10;
+					socket.removeListener('draw');
+				}.bind(this));
 	
-					socket.on('end', function () {
-						image = JSON.stringify(canvas);
-						canvas.clear();
-						//send image to server
-						console.log(image);
-						socket.emit('image', image);
-						window.location.href = '#/vote';
-					}.bind(this));
+				socket.on('end', function () {
+					image = JSON.stringify(canvas);
+					canvas.clear();
+					//send image to server
+					console.log(image);
+					socket.emit('image', image);
+					socket.removeListener('end');
+					window.location.href = '#/vote';
 				}.bind(this));
 	
 				// start the countdown
@@ -28202,8 +28205,8 @@
 					this.setState({
 						renderInfo: info
 					});
-	
 					//this.renderDrawings(images)
+					socket.removeListener('results');
 				}.bind(this));
 	
 				// listen to switch to readyView
@@ -28333,6 +28336,7 @@
 					//Emit name voted on to server.
 					console.log('name', this.getVotedName());
 					socket.emit('vote', this.getVotedName());
+					socket.removeListener('countVotes');
 					window.location.href = '#/result';
 				}.bind(this));
 			}
