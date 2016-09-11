@@ -79,9 +79,9 @@ io.on('connection', function(socket) {
       if (!queried) {
         drawingController.retrieveRoundsDrawings(rounds, function (data) {
           images = data;
-          console.log('data', data)
-          var time = Math.max(20, Object.keys(clients).length * 2)
-          console.log('time', time)
+          console.log('data', data);
+          var time = Math.max(20, Object.keys(clients).length * 2);
+          console.log('time', time);
           io.emit('vote', {
             images: images,
             time: time
@@ -98,22 +98,22 @@ io.on('connection', function(socket) {
   });
       
   socket.on('vote', function (name) {
-    console.log('name',name)
+    console.log('name', name);
     clients[name]++;
     votes[name]++;
-    console.log('client votes', clients[name])
+    console.log('client votes', clients[name]);
     
     setTimeout(function () {
       for (var i = 0; i < images.length; i++) {
-          images[i]['votes'] =  votes[name]//clients[images[i].name];
-          console.log('votes', images[i]);
-          console.log('client votes',clients[name])
+        images[i]['votes'] =  votes[name]; // clients[images[i].name];
+        console.log('votes', images[i]);
+        console.log('client votes', clients[name]);
       }
       socket.emit('results', {
         images: images,
         playerName: socket.name,
         rounds: rounds,
-        votes:votes,
+        votes: votes,
         wins: null
       });
     }, 1000);
