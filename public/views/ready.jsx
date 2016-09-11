@@ -19,7 +19,7 @@ export default class ready extends React.Component {
 
 	render() {
 		return (
-		<div className="readyScreen">
+		<div className="readyScreen valign">
 			<h1 className="tlt"> Everyone Ready? </h1>
 			<button className="btn waves-effect waves-light" value="Press this button when everyone is in" onClick={this.start}>Press this button when everyone is ready</button>
 		</div>

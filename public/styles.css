@@ -118,10 +118,9 @@ input#player::-webkit-input-placeholder {
 
 .mainbody {
     top: 110px;
-    position: absolute;
     bottom: 75px;
 }
 
-.mainbody.valign-wrapper {
-    margin-top: -40px;
+div#app {
+    min-height: 380px;
 }

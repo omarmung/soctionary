@@ -79,7 +79,7 @@ io.on('connection', function(socket) {
       if (!queried) {
         drawingController.retrieveRoundsDrawings(rounds, function (data) {
           images = data;
-          console.log('data', data);
+          console.log('DATA HERE IS', data);
           var time = Math.max(20, Object.keys(clients).length * 2);
           console.log('time', time);
           io.emit('vote', {
