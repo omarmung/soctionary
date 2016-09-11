@@ -28061,11 +28061,11 @@
 				console.log('countdown started...');
 				this.timer = setInterval(this.tick.bind(this), 1000);
 			}
-		}, {
-			key: "componentWillUnmount",
-			value: function componentWillUnmount() {
-				clearInterval(this.timer);
-			}
+	
+			// componentWillUnmount() {
+			// 	clearInterval(this.timer);
+			// }
+	
 		}, {
 			key: "tick",
 			value: function tick() {
@@ -28395,7 +28395,12 @@
 						// var blob = JSON.parse(json);
 						var image = new Image();
 	
-						image.src = canvas.toDataURL("image/png");
+						image.src = canvas.toDataURL({
+							format: 'image/png',
+							multiplier: 0.25,
+							width: 375,
+							height: 375
+						});
 						count++;
 						var id = 'd' + count;
 						document.getElementById(id).appendChild(image);
