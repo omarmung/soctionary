@@ -33,7 +33,7 @@ export default class Result extends React.Component {
 				canvas.loadFromJSON( blob.vectorDrawing, function() {
 			  		// canvas.renderAll.bind(canvas)
 			  		// var blob = JSON.parse(json);
-
+			  		console.log(blob);
 			  		var image = canvas.toDataURL({
 							format: 'image/png',
 							multiplier: 0.25,
@@ -44,7 +44,7 @@ export default class Result extends React.Component {
 					info.push({
 						id: 'd' + info.length,
 						name:blob.playerName,
-						votes:data.votes[blob.playerName] || 0,
+						votes:blob.voteCount || 0,
 						image: image
 						//wins:blob.roundWins 
 					})
@@ -54,7 +54,6 @@ export default class Result extends React.Component {
 				id: 'again',
 				goAgain:this.goAgain
 			})
-			console.log(info);
 			this.setState({
 				renderInfo: info
 			})

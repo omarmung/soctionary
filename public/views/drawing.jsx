@@ -46,7 +46,6 @@ export default class Drawing extends React.Component {
 		  image = JSON.stringify(canvas);
 		  canvas.clear();
 		  //send image to server
-		  console.log(image)
 		  socket.emit('image', image); 
 		  socket.removeListener('end');
 		  window.location.href = '#/vote' 			  	

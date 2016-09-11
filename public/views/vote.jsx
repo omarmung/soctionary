@@ -24,7 +24,6 @@ export default class Vote extends React.Component {
 			//time for countdown
 			var time = data.time;
 			var canvas = new fabric.Canvas('test')
-			console.log('data',data)
 			//var images = [];
 			data.images.forEach( function(blob) {
 				//images.push(blob.vectorDrawing);
@@ -49,7 +48,6 @@ export default class Vote extends React.Component {
 			this.setState({
 				renderInfo: info
 			})
-			console.log('render images',this.state.renderInfo)
 
 		  // redirect to voting view
 		  // images is an array of JSON.stringify(canvas) objects to vote on
@@ -61,7 +59,6 @@ export default class Vote extends React.Component {
 
 		socket.on('countVotes', function()  {
 			//Emit name voted on to server.
-			console.log('name',this.getVotedName());
 			socket.emit('vote', this.getVotedName())
 			socket.removeListener('countVotes')
 			window.location.href = '#/result' 

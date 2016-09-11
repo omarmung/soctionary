@@ -28039,7 +28039,6 @@
 					image = JSON.stringify(canvas);
 					canvas.clear();
 					//send image to server
-					console.log(image);
 					socket.emit('image', image);
 					socket.removeListener('end');
 					window.location.href = '#/vote';
@@ -28180,7 +28179,7 @@
 						canvas.loadFromJSON(blob.vectorDrawing, function () {
 							// canvas.renderAll.bind(canvas)
 							// var blob = JSON.parse(json);
-	
+							console.log(blob);
 							var image = canvas.toDataURL({
 								format: 'image/png',
 								multiplier: 0.25,
@@ -28191,7 +28190,7 @@
 							info.push({
 								id: 'd' + info.length,
 								name: blob.playerName,
-								votes: data.votes[blob.playerName] || 0,
+								votes: blob.voteCount || 0,
 								image: image
 								//wins:blob.roundWins 
 							});
@@ -28201,7 +28200,6 @@
 						id: 'again',
 						goAgain: this.goAgain
 					});
-					console.log(info);
 					this.setState({
 						renderInfo: info
 					});
@@ -28300,7 +28298,6 @@
 					//time for countdown
 					var time = data.time;
 					var canvas = new fabric.Canvas('test');
-					console.log('data', data);
 					//var images = [];
 					data.images.forEach(function (blob) {
 						//images.push(blob.vectorDrawing);
@@ -28324,7 +28321,6 @@
 					this.setState({
 						renderInfo: info
 					});
-					console.log('render images', this.state.renderInfo);
 	
 					// redirect to voting view
 					// images is an array of JSON.stringify(canvas) objects to vote on
@@ -28334,7 +28330,6 @@
 	
 				socket.on('countVotes', function () {
 					//Emit name voted on to server.
-					console.log('name', this.getVotedName());
 					socket.emit('vote', this.getVotedName());
 					socket.removeListener('countVotes');
 					window.location.href = '#/result';
