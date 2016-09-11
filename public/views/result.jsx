@@ -2,8 +2,9 @@ import React from 'react'
 
 var Player = (props) => (
 	<div id={props.id} >
-	{`User ${props.name} had ${props.votes} votes. `}
-	<img src={props.image}/>
+	{props.name ? `User ${props.name} had ${props.votes} votes. ` : null}
+	{props.goAgain ?  <button onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
+
 	</div>
 	)
 
@@ -49,14 +50,16 @@ export default class Result extends React.Component {
 					})
 				})
 			})
-
+			info.push({
+				id: 'again',
+				goAgain:this.goAgain
+			})
 			console.log(info);
 			this.setState({
 				renderInfo: info
 			})
-
 			//this.renderDrawings(images)
-
+			socket.removeListener('results');
 		}.bind(this))
 
   	// listen to switch to readyView
@@ -73,15 +76,12 @@ export default class Result extends React.Component {
 
 
 
-
 	render() {
 		return (
 			<div id="vote">
 				{this.state.renderInfo.map((data) => 
-					<Player id={data.id} name = {data.name} votes={data.votes} image={data.image}/>
+					<Player id={data.id} name = {data.name} votes={data.votes} image={data.image} goAgain={data.goAgain}/>
 				)}
-				<button onClick={this.goAgain}>Play again?</button>
-
 			</div>
 
 

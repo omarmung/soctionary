@@ -22,6 +22,7 @@ export default class Drawing extends React.Component {
 
 		// create canvas
 		var image = null;
+		var canvas = null;
 
 
 		socket.on('draw', function () {
@@ -30,29 +31,26 @@ export default class Drawing extends React.Component {
 				drawCanvas: true
 			})
 
-			var canvas = new fabric.Canvas('canvas', {
+			canvas = new fabric.Canvas('canvas', {
 			  isDrawingMode: true
 			});
 
 			// set brush size
 			canvas.freeDrawingBrush.width = 10;
+			socket.removeListener('draw');
 
-		  //redirect to draw view
-		  canvas.on('path:created', function(options) {
-		    image = JSON.stringify(canvas);
-		    // console.log('Saving drawing to image variable...');
-		    // console.log(JSON.stringify(canvas));
-		  });
 
-			socket.on('end', function () {
-			  //send image to server
-			  console.log(image)
-
-			  socket.emit('image', image); 
-			  window.location.href = '#/vote' 
-			}.bind(this));
 		}.bind(this));
 
+		socket.on('end', function () {
+		  image = JSON.stringify(canvas);
+		  canvas.clear();
+		  //send image to server
+		  console.log(image)
+		  socket.emit('image', image); 
+		  socket.removeListener('end');
+		  window.location.href = '#/vote' 			  	
+		}.bind(this));
 
 		// start the countdown
 		// this.countDown();

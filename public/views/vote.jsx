@@ -63,6 +63,7 @@ export default class Vote extends React.Component {
 			//Emit name voted on to server.
 			console.log('name',this.getVotedName());
 			socket.emit('vote', this.getVotedName())
+			socket.removeListener('countVotes')
 			window.location.href = '#/result' 
 		}.bind(this))
 
@@ -87,8 +88,6 @@ export default class Vote extends React.Component {
 		}
 		document.getElementById(id).className += "voted"
 	}
-
-	
 
 
 	render() {
