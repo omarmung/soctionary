@@ -27871,7 +27871,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'user-register z-depth-1' },
+					{ className: 'user-register z-depth-1 valign' },
 					_react2.default.createElement('input', { type: 'text', id: 'player', placeholder: 'stumpy the kitty' }),
 					_react2.default.createElement(
 						'button',
@@ -27944,7 +27944,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'readyScreen' },
+					{ className: 'readyScreen valign' },
 					_react2.default.createElement(
 						'h1',
 						{ className: 'tlt' },
@@ -28091,7 +28091,7 @@
 					null,
 					_react2.default.createElement(
 						"div",
-						{ className: "drawingCountdown" },
+						{ className: "drawingCountdown valign" },
 						_react2.default.createElement(
 							"div",
 							{ className: "prompt" },

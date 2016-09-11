@@ -118,10 +118,30 @@ input#player::-webkit-input-placeholder {
 
 .mainbody {
     top: 110px;
-    position: absolute;
     bottom: 75px;
 }
 
-.mainbody.valign-wrapper {
-    margin-top: -40px;
+div#app {
+    min-height: 380px;
+}
+
+.readyScreen.valign {
+    margin: 0 auto;
+}
+
+.drawingCountdown {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.countdown {
+  font-size: 150px;
+  font-weight: 900;
+  margin: 0 auto;
+}
+
+span.givenAnimal {
+    font-weight: 900;
+    font-size: 40px;
+    padding:10px;
 }
