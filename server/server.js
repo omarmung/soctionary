@@ -98,6 +98,7 @@ io.on('connection', function(socket) {
   });
       
   socket.on('vote', function (name) {
+    drawingController.updateVoteCount(rounds, name);
     console.log('name', name);
     clients[name]++;
     votes[name]++;
@@ -106,8 +107,6 @@ io.on('connection', function(socket) {
     setTimeout(function () {
       for (var i = 0; i < images.length; i++) {
         images[i]['votes'] =  votes[name]; // clients[images[i].name];
-        console.log('votes', images[i]);
-        console.log('client votes', clients[name]);
       }
       socket.emit('results', {
         images: images,
