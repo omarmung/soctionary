@@ -45,14 +45,12 @@ var animals = [
 var clients = {};
 var rounds = 0;
 var queried = false;
-var votes = {};
 var images;
 
 io.on('connection', function(socket) {
   
   socket.on('name', function (name) {
     socket.name = name;
-    votes[name] = 0;
     clients[name] = 0;
     socket.emit('readyView');
   });
@@ -100,19 +98,12 @@ io.on('connection', function(socket) {
   socket.on('vote', function (name) {
     drawingController.updateVoteCount(rounds, name);
     console.log('name', name);
-    clients[name]++;
-    votes[name]++;
-    console.log('client votes', clients[name]);
     
     setTimeout(function () {
-      for (var i = 0; i < images.length; i++) {
-        images[i]['votes'] =  votes[name]; // clients[images[i].name];
-      }
       socket.emit('results', {
         images: images,
         playerName: socket.name,
         rounds: rounds,
-        votes: votes,
         wins: null
       });
     }, 1000);
