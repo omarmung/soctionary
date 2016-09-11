@@ -27871,7 +27871,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'user-register z-depth-1' },
+					{ className: 'user-register z-depth-1 valign' },
 					_react2.default.createElement('input', { type: 'text', id: 'player', placeholder: 'stumpy the kitty' }),
 					_react2.default.createElement(
 						'button',
@@ -27944,7 +27944,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'readyScreen' },
+					{ className: 'readyScreen valign' },
 					_react2.default.createElement(
 						'h1',
 						{ className: 'tlt' },
@@ -28061,11 +28061,11 @@
 				console.log('countdown started...');
 				this.timer = setInterval(this.tick.bind(this), 1000);
 			}
-		}, {
-			key: "componentWillUnmount",
-			value: function componentWillUnmount() {
-				clearInterval(this.timer);
-			}
+	
+			// componentWillUnmount() {
+			// 	clearInterval(this.timer);
+			// }
+	
 		}, {
 			key: "tick",
 			value: function tick() {
@@ -28091,7 +28091,7 @@
 					null,
 					_react2.default.createElement(
 						"div",
-						{ className: "drawingCountdown" },
+						{ className: "drawingCountdown valign" },
 						_react2.default.createElement(
 							"div",
 							{ className: "prompt" },
@@ -28395,7 +28395,12 @@
 						// var blob = JSON.parse(json);
 						var image = new Image();
 	
-						image.src = canvas.toDataURL("image/png");
+						image.src = canvas.toDataURL({
+							format: 'image/png',
+							multiplier: 0.25,
+							width: 375,
+							height: 375
+						});
 						count++;
 						var id = 'd' + count;
 						document.getElementById(id).appendChild(image);

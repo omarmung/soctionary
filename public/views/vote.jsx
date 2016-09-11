@@ -95,7 +95,12 @@ export default class Vote extends React.Component {
 			  		// var blob = JSON.parse(json);
 			  		var image = new Image();
 
-			  		image.src = canvas.toDataURL("image/png");
+			  		image.src = canvas.toDataURL({
+							format: 'image/png',
+							multiplier: 0.25,
+							width: 375,
+						  height: 375
+						});
 			  		count++;
 			  		var id = 'd' + count;
 			  		document.getElementById(id).appendChild(image);

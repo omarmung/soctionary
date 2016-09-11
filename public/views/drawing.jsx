@@ -63,9 +63,9 @@ export default class Drawing extends React.Component {
 		this.timer = setInterval(this.tick.bind(this), 1000)
 	}
 
-	componentWillUnmount() {
-		clearInterval(this.timer);
-	}
+	// componentWillUnmount() {
+	// 	clearInterval(this.timer);
+	// }
 
   tick() {
   	this.setState({remainingTime: this.state.remainingTime - 1});
