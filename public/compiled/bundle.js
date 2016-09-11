@@ -28032,17 +28032,11 @@
 					// set brush size
 					canvas.freeDrawingBrush.width = 10;
 	
-					//redirect to draw view
-					canvas.on('path:created', function (options) {
-						image = JSON.stringify(canvas);
-						// console.log('Saving drawing to image variable...');
-						// console.log(JSON.stringify(canvas));
-					});
-	
 					socket.on('end', function () {
+						image = JSON.stringify(canvas);
+						canvas.clear();
 						//send image to server
 						console.log(image);
-	
 						socket.emit('image', image);
 						window.location.href = '#/vote';
 					}.bind(this));
@@ -28144,8 +28138,12 @@
 		return _react2.default.createElement(
 			'div',
 			{ id: props.id },
-			'User ' + props.name + ' had ' + props.votes + ' votes. ',
-			_react2.default.createElement('img', { src: props.image })
+			props.name ? 'User ' + props.name + ' had ' + props.votes + ' votes. ' : null,
+			props.goAgain ? _react2.default.createElement(
+				'button',
+				{ onClick: props.goAgain },
+				'Play again?'
+			) : _react2.default.createElement('img', { src: props.image })
 		);
 	};
 	
@@ -28196,7 +28194,10 @@
 							});
 						});
 					});
-	
+					info.push({
+						id: 'again',
+						goAgain: this.goAgain
+					});
 					console.log(info);
 					this.setState({
 						renderInfo: info
@@ -28222,13 +28223,8 @@
 					'div',
 					{ id: 'vote' },
 					this.state.renderInfo.map(function (data) {
-						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image });
-					}),
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.goAgain },
-						'Play again?'
-					)
+						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image, goAgain: data.goAgain });
+					})
 				);
 			}
 		}]);

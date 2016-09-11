@@ -37,19 +37,14 @@ export default class Drawing extends React.Component {
 			// set brush size
 			canvas.freeDrawingBrush.width = 10;
 
-		  //redirect to draw view
-		  canvas.on('path:created', function(options) {
-		    image = JSON.stringify(canvas);
-		    // console.log('Saving drawing to image variable...');
-		    // console.log(JSON.stringify(canvas));
-		  });
 
 			socket.on('end', function () {
+			  image = JSON.stringify(canvas);
+			  canvas.clear();
 			  //send image to server
 			  console.log(image)
-
 			  socket.emit('image', image); 
-			  window.location.href = '#/vote' 
+			  window.location.href = '#/vote' 			  	
 			}.bind(this));
 		}.bind(this));
 
