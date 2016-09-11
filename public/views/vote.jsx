@@ -88,48 +88,7 @@ export default class Vote extends React.Component {
 		document.getElementById(id).className += "voted"
 	}
 
-	renderDrawings(arr){
-		// arr.forEach(function(pic) {
-
-			var canvas = new fabric.Canvas('test')
-			var imageData = [];
-			var count = -1;
-			arr.forEach(function(pic) {
-
-			// canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function() {
-			//     var image = new Image();
-			//     var drawings = document.getElementById('test');
-			//     image.src = drawings.toDataUrl("image/png");
-			//     document.getElementById('vote').appendChild(image);
-			// });
-
-			  	canvas.loadFromJSON( pic, function() {
-			  		// canvas.renderAll.bind(canvas)
-			  		// var blob = JSON.parse(json);
-			  		var image = new Image();
-
-			  		image.src = canvas.toDataURL({
-							format: 'image/png',
-							multiplier: 0.25,
-							width: 375,
-						  height: 375
-						});
-			  		count++;
-			  		var id = 'd' + count;
-			  		document.getElementById(id).appendChild(image);
-			  		canvas.clear();
-
-			  		//place image on canvas/page appropriately
-			  	});
-			//canvas.renderAll.bind(canvas)
-		// })
-				
-			})
-			// var parent = document.getElementById("vote");
-			// var child = document.getElementById("test");
-			// parent.removeChild(child);
-
-	}
+	
 
 
 	render() {
