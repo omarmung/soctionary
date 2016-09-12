@@ -5,9 +5,11 @@
 }
 
 .canvas-container {
-    background-color: white;
-  border-style: solid;
-  border-width: 5px;
+  background-color: white;
+  border: 1px solid #000;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px#888;
+  box-shadow: 0px 30px 100px 0px rgba(0, 0, 0, 0.14);
 }
 
 body {
@@ -145,3 +147,36 @@ span.givenAnimal {
     font-size: 40px;
     padding:10px;
 }
+
+.drawingWrapper {
+  margin: 0 auto;
+  margin-top: 20px;
+
+}
+
+
+.voteInstance {
+  margin-bottom: 10px;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px#888;
+  box-shadow: 0px 30px 100px 0px rgba(0, 0, 0, 0.14);
+  text-align: center;
+}
+.voteInstance img {
+  border: 1px solid #fff;
+}
+
+.row .voteInstance {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
+
+.row .voted {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
+

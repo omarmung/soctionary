@@ -28093,7 +28093,11 @@
 							"div",
 							{ className: "prompt" },
 							"Draw a ",
-							window.Animal,
+							_react2.default.createElement(
+								"span",
+								{ className: "givenAnimal" },
+								window.Animal
+							),
 							" in..."
 						),
 						_react2.default.createElement(
@@ -28227,7 +28231,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ id: 'vote' },
+					{ id: 'vote', className: 'row' },
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image, goAgain: data.goAgain });
 					})
@@ -28401,7 +28405,7 @@
 				//Need to decide if we use one big canvas, or just render images of all the drawings
 				return _react2.default.createElement(
 					'div',
-					{ id: 'vote' },
+					{ id: 'vote', className: 'row' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'waitTime' },
