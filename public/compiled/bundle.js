@@ -28004,7 +28004,7 @@
 	
 			_this.state = {
 				drawCanvas: false,
-				remainingTime: 3
+				remainingTime: 4
 			};
 			return _this;
 		}
@@ -28036,6 +28036,8 @@
 				}.bind(this));
 	
 				socket.on('end', function () {
+					var node = document.getElementsByClassName('drawingWrapper')[0];
+					this.triggerMouseEvent(node, 'mouseup');
 					image = JSON.stringify(canvas);
 					canvas.clear();
 					//send image to server
@@ -28053,17 +28055,19 @@
 				console.log('countdown started...');
 				this.timer = setInterval(this.tick.bind(this), 1000);
 			}
-	
-			// componentWillUnmount() {
-			// 	clearInterval(this.timer);
-			// }
-	
+		}, {
+			key: "triggerMouseEvent",
+			value: function triggerMouseEvent(node, eventType) {
+				var clickEvent = document.createEvent('MouseEvents');
+				clickEvent.initEvent(eventType, true, true);
+				node.dispatchEvent(clickEvent);
+			}
 		}, {
 			key: "tick",
 			value: function tick() {
 				this.setState({ remainingTime: this.state.remainingTime - 1 });
 				console.log('tick: ' + this.state.remainingTime);
-				if (this.state.remainingTime <= 0) {
+				if (this.state.remainingTime <= 1) {
 					clearInterval(this.timer);
 					this.setState({ remainingTime: 'Draw!' });
 					setTimeout(this.hideCountDown.bind(this), 1000);
@@ -28088,11 +28092,7 @@
 							"div",
 							{ className: "prompt" },
 							"Draw a ",
-							_react2.default.createElement(
-								"span",
-								{ className: "givenAnimal" },
-								window.Animal
-							),
+							window.Animal,
 							" in..."
 						),
 						_react2.default.createElement(
