@@ -28080,7 +28080,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					"div",
-					null,
+					{ className: "drawingWrapper" },
 					_react2.default.createElement(
 						"div",
 						{ className: "drawingCountdown valign" },
@@ -28139,7 +28139,7 @@
 	var Player = function Player(props) {
 		return _react2.default.createElement(
 			'div',
-			{ id: props.id },
+			{ className: 'resultInstance', id: props.id },
 			props.name ? 'User ' + props.name + ' had ' + props.votes + ' votes. ' : null,
 			props.goAgain ? _react2.default.createElement(
 				'button',
@@ -28266,7 +28266,7 @@
 	var Select = function Select(props) {
 		return _react2.default.createElement(
 			'div',
-			{ id: props.id, value: props.name, onClick: function onClick() {
+			{ className: 'voteInstance', id: props.id, value: props.name, onClick: function onClick() {
 					return props.voting(props.id);
 				} },
 			_react2.default.createElement('img', { src: props.image })
