@@ -28386,8 +28386,11 @@
 			key: 'voting',
 			value: function voting(id) {
 				if (document.getElementsByClassName('voted')[0]) {
+					var vote = document.getElementsByClassName('voted')[0].id;
 					document.getElementsByClassName('voted')[0].classList.remove("voted");
+					document.getElementById(vote).className += "voteInstance";
 				}
+				document.getElementById(id).classList.remove("voteInstance");
 				document.getElementById(id).className += "voted";
 			}
 		}, {

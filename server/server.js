@@ -96,17 +96,23 @@ io.on('connection', function(socket) {
   });
       
   socket.on('vote', function (name) {
-    drawingController.updateVoteCount(rounds, name);
-    console.log('name', name);
-    
-    setTimeout(function () {
-      socket.emit('results', {
-        images: images,
-        playerName: socket.name,
-        rounds: rounds,
-        wins: null
+    drawingController.updateVoteCount(rounds, name, function() {
+      drawingController.retrieveRoundsDrawings(rounds, function (data) {
+        images = data;
+        console.log('images', images);
+        
+        setTimeout(function () {
+          socket.emit('results', {
+            images: images,
+            playerName: socket.name,
+            rounds: rounds,
+            wins: null
+          });
+        }, 1000);
+
       });
-    }, 1000);
+      
+    });
     
   });
 
