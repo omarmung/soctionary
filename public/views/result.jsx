@@ -2,8 +2,8 @@ import React from 'react'
 
 var Player = (props) => (
 	<div className="resultInstance" id={props.id} >
-	{props.name ? <p> User <span className="userName">{props.name}</span> had <span className="numVotes">{props.votes}</span> votes. </p>: null}
-	{props.goAgain ?  <button onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
+	{props.name ? <p><span className="userName">{props.name}</span> had <span className="numVotes">{props.votes}</span> votes. </p>: null}
+	{props.goAgain ?  <button className="btn waves-effect waves-light playAgain" onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
  
 	</div>
 	)

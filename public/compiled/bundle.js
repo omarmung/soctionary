@@ -28152,7 +28152,6 @@
 			props.name ? _react2.default.createElement(
 				"p",
 				null,
-				" User ",
 				_react2.default.createElement(
 					"span",
 					{ className: "userName" },
@@ -28168,7 +28167,7 @@
 			) : null,
 			props.goAgain ? _react2.default.createElement(
 				"button",
-				{ onClick: props.goAgain },
+				{ className: "btn waves-effect waves-light playAgain", onClick: props.goAgain },
 				"Play again?"
 			) : _react2.default.createElement("img", { src: props.image })
 		);
