@@ -82,7 +82,7 @@ export default class Drawing extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className= "drawingWrapper">
 				<div className='drawingCountdown valign'>
 					<div className="prompt">Draw a {window.Animal} in...</div>
 					<div className="countdown"> {this.state.remainingTime} </div>

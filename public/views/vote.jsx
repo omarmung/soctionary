@@ -2,7 +2,7 @@ import React from 'react'
 
 //show prompt for thing
 var Select = (props) => (
-	<div id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
+	<div className="voteInstance" id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
 		<img src={props.image}/>
 	</div>
 	)
