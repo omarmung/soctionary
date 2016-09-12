@@ -200,3 +200,10 @@ span.givenAnimal {
     margin-bottom: 10px;
     border: 1px solid #000;
 }
+
+.resultInstance img {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
