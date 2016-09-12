@@ -11,7 +11,7 @@ export default class Drawing extends React.Component {
 		super(props)
 		this.state = {
 			drawCanvas: false,
-			remainingTime: 4
+			remainingTime: 3
 		}
 	}
 
@@ -71,7 +71,7 @@ export default class Drawing extends React.Component {
   tick() {
   	this.setState({remainingTime: this.state.remainingTime - 1});
   	console.log('tick: ' + this.state.remainingTime);
-    if (this.state.remainingTime <= 1) {
+    if (this.state.remainingTime <= 0) {
     	clearInterval(this.timer);
     	this.setState({remainingTime: 'Draw!'});
     	setTimeout(this.hideCountDown.bind(this), 1000);
@@ -87,7 +87,7 @@ export default class Drawing extends React.Component {
 		return (
 			<div className= "drawingWrapper">
 				<div className='drawingCountdown valign'>
-					<div className="prompt">Draw a {window.Animal} in...</div>
+					<div className="prompt">Draw a <span className="giveAnimal">{window.Animal}</span> in...</div>
 					<div className="countdown"> {this.state.remainingTime} </div>
 				</div>
 				{this.state.drawCanvas ? <Board /> : null}

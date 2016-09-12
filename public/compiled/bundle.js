@@ -28004,7 +28004,7 @@
 	
 			_this.state = {
 				drawCanvas: false,
-				remainingTime: 4
+				remainingTime: 3
 			};
 			return _this;
 		}
@@ -28067,7 +28067,7 @@
 			value: function tick() {
 				this.setState({ remainingTime: this.state.remainingTime - 1 });
 				console.log('tick: ' + this.state.remainingTime);
-				if (this.state.remainingTime <= 1) {
+				if (this.state.remainingTime <= 0) {
 					clearInterval(this.timer);
 					this.setState({ remainingTime: 'Draw!' });
 					setTimeout(this.hideCountDown.bind(this), 1000);
@@ -28092,7 +28092,11 @@
 							"div",
 							{ className: "prompt" },
 							"Draw a ",
-							window.Animal,
+							_react2.default.createElement(
+								"span",
+								{ className: "giveAnimal" },
+								window.Animal
+							),
 							" in..."
 						),
 						_react2.default.createElement(
