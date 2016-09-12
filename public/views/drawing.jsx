@@ -87,7 +87,7 @@ export default class Drawing extends React.Component {
 		return (
 			<div className= "drawingWrapper">
 				<div className='drawingCountdown valign'>
-					<div className="prompt">Draw a <span className="giveAnimal">{window.Animal}</span> in...</div>
+					<div className="prompt">Draw a <span className="givenAnimal">{window.Animal}</span> in...</div>
 					<div className="countdown"> {this.state.remainingTime} </div>
 				</div>
 				{this.state.drawCanvas ? <Board /> : null}

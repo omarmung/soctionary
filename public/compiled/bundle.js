@@ -28094,7 +28094,7 @@
 							"Draw a ",
 							_react2.default.createElement(
 								"span",
-								{ className: "giveAnimal" },
+								{ className: "givenAnimal" },
 								window.Animal
 							),
 							" in..."
