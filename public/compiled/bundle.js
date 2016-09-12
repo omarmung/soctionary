@@ -28415,7 +28415,7 @@
 							'Loading...'
 						),
 						' ',
-						_react2.default.createElement('img', { src: 'stumpy-loading.gif' }),
+						_react2.default.createElement('img', { className: 'loadingStump', src: 'stumpy-loading.gif' }),
 						' '
 					),
 					_react2.default.createElement(
