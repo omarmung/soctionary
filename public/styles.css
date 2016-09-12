@@ -214,3 +214,12 @@ span.givenAnimal {
 div#vote {
     margin-top: 40px;
 }
+
+.resultInstance img {
+    background: white;
+    border: 1px solid #e0e0e0;
+}
+
+.voteInstance {
+    padding: 10px;
+}

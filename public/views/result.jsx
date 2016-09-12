@@ -2,7 +2,7 @@ import React from 'react'
 
 var Player = (props) => (
 	<div className="resultInstance col s6" id={props.id} >
-	{props.name ? `User ${props.name} had ${props.votes} votes. ` : null}
+	{props.name ? `${props.name} had ${props.votes} votes. ` : null}
 	{props.goAgain ?  <button className="btn waves-effect waves-light" onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
  
 	</div>

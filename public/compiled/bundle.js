@@ -28149,7 +28149,7 @@
 		return _react2.default.createElement(
 			"div",
 			{ className: "resultInstance col s6", id: props.id },
-			props.name ? "User " + props.name + " had " + props.votes + " votes. " : null,
+			props.name ? props.name + " had " + props.votes + " votes. " : null,
 			props.goAgain ? _react2.default.createElement(
 				"button",
 				{ className: "btn waves-effect waves-light", onClick: props.goAgain },
