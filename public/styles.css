@@ -154,11 +154,6 @@ span.givenAnimal {
 
 }
 
-
-.voteInstance {
-  margin-bottom: 10px;
-  text-align: center;
-}
 .voteInstance img {
   border: 1px solid #fff;
 }
@@ -168,6 +163,7 @@ span.givenAnimal {
     margin-left: auto;
     left: auto;
     right: auto;
+    float: left;
 }
 
 .row .voted {
@@ -175,6 +171,7 @@ span.givenAnimal {
     margin-left: auto;
     left: auto;
     right: auto;
+    float: left;
 }
 
 .waitTime {
@@ -184,10 +181,22 @@ span.givenAnimal {
 }
 
 .waitTime img {
-  width: 80%;
+  width: 250px;
   text-align: center;
 }
 .row.HR {
     margin-bottom: 3px;
     margin-top: 3px;
+}
+
+.loadingText {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.voteInstance {
+    background: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #000;
 }

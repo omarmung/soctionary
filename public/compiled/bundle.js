@@ -28148,7 +28148,7 @@
 	var Player = function Player(props) {
 		return _react2.default.createElement(
 			'div',
-			{ className: 'resultInstance', id: props.id },
+			{ className: 'resultInstance col s6', id: props.id },
 			props.name ? 'User ' + props.name + ' had ' + props.votes + ' votes. ' : null,
 			props.goAgain ? _react2.default.createElement(
 				'button',
@@ -28409,13 +28409,14 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'waitTime' },
-						_react2.default.createElement(
-							'p',
-							null,
-							'Loading...'
-						),
 						' ',
 						_react2.default.createElement('img', { className: 'loadingStump', src: 'stumpy-loading.gif' }),
+						' ',
+						_react2.default.createElement(
+							'p',
+							{ className: 'loadingText' },
+							'Loading...'
+						),
 						' '
 					),
 					_react2.default.createElement(
