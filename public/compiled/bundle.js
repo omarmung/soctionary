@@ -28148,11 +28148,27 @@
 	var Player = function Player(props) {
 		return _react2.default.createElement(
 			"div",
-			{ className: "resultInstance col s6", id: props.id },
-			props.name ? props.name + " had " + props.votes + " votes. " : null,
+			{ className: "resultInstance", id: props.id },
+			props.name ? _react2.default.createElement(
+				"p",
+				null,
+				" User ",
+				_react2.default.createElement(
+					"span",
+					{ className: "userName" },
+					props.name
+				),
+				" had ",
+				_react2.default.createElement(
+					"span",
+					{ className: "numVotes" },
+					props.votes
+				),
+				" votes. "
+			) : null,
 			props.goAgain ? _react2.default.createElement(
 				"button",
-				{ className: "btn waves-effect waves-light", onClick: props.goAgain },
+				{ onClick: props.goAgain },
 				"Play again?"
 			) : _react2.default.createElement("img", { src: props.image })
 		);
@@ -28231,7 +28247,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					"div",
-					{ id: "vote", className: "row" },
+					{ id: "vote" },
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image, goAgain: data.goAgain });
 					})

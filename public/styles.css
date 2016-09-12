@@ -115,7 +115,9 @@ input#player::-webkit-input-placeholder {
 }
 
 .voted {
-    border: 5px solid gold;
+  outline: none;
+  border-color: gold;
+  box-shadow: 0 0 10px gold;
 }
 
 .mainbody {
@@ -169,6 +171,7 @@ span.givenAnimal {
     left: auto;
     right: auto;
     float: left;
+    padding: 10px;
 }
 
 .waitTime {
@@ -196,11 +199,10 @@ span.givenAnimal {
     background: #fff;
     margin-bottom: 10px;
     border: 1px solid #000;
-    padding: 10px;
 }
 
 .resultInstance img {
-    width: 50%;
+    width: 100%;
     margin-left: auto;
     left: auto;
     right: auto;
@@ -222,4 +224,12 @@ div#vote {
 
 .voteInstance {
     padding: 10px;
+}
+
+span.userName {
+    font-weight: bold;
+}
+
+span.numVotes {
+    font-weight: bold;
 }
