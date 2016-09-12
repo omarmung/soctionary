@@ -28317,28 +28317,34 @@
 		_createClass(Vote, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+				document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
 				document.getElementsByClassName('waitTime')[0].style.display = 'inline';
-	
-				// componentWillUnmount() {
-				// 	clearInterval(this.timer);
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				clearInterval(this.timer);
 			}
 		}, {
 			key: 'tick',
 			value: function tick() {
-				this.setState({ remainingTime: this.state.remainingTime - 1 });
-				console.log('tick: ' + this.state.remainingTime);
-				if (this.state.remainingTime <= 1) {
-					clearInterval(this.timer);
-					this.setState({ remainingTime: '!' });
-					setTimeout(this.hideCountDown.bind(this), 1000);
-					;
+				for (var i = 0; i < this.state.remainingTime; i++) {
+					setTimeout(function () {
+						this.setState({ remainingTime: this.state.remainingTime - 1 });
+					}.bind(this), i * 1000);
 				}
+				// var time1 = setInterval(function() {
+				// 	this.setState({remainingTime: this.state.remainingTime - 1});
+				// 	console.log('tick: ' + this.state.remainingTime);
+				//   if (this.state.remainingTime <= 0) {
+				//   	clearInterval(time1);
+				//   }
+				// }.bind(this), 1000);
 			}
 		}, {
 			key: 'hideCountDown',
 			value: function hideCountDown() {
-				document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+				document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
 			}
 		}, {
 			key: 'componentWillMount',
@@ -28347,7 +28353,7 @@
 				socket.on('vote', function (data) {
 					//time for countdown
 					var time = data.time;
-					this.setState({ remainingTime: time });
+					this.setState({ remainingTime: time + 1 });
 					var canvas = new fabric.Canvas('test');
 					//var images = [];
 					data.images.forEach(function (blob) {
@@ -28368,7 +28374,7 @@
 							canvas.clear();
 						});
 					});
-	
+					console.log('info', info);
 					this.setState({
 						renderInfo: info
 					});
@@ -28378,7 +28384,7 @@
 					//this.renderDrawings(images);
 	
 					console.log('vote countdown started...');
-					this.timer = setInterval(this.tick.bind(this), 1000);
+					this.tick();
 					document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
 					document.getElementsByClassName('waitTime')[0].style.display = 'none';
 				}.bind(this));
