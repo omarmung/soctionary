@@ -84,7 +84,7 @@ export default class Vote extends React.Component {
 		  //this.renderDrawings(images);
   
     	console.log('vote countdown started...');
-    	this.tick();
+    	setTimeout(this.tick.bind(this),0);
     	document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
   	  document.getElementsByClassName('waitTime')[0].style.display = 'none';
       

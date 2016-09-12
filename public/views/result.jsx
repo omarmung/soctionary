@@ -78,6 +78,7 @@ export default class Result extends React.Component {
 	render() {
 		return (
 			<div id="vote">
+				<h1 className="results"> Results! </h1>
 				{this.state.renderInfo.map((data) => 
 					<Player id={data.id} name = {data.name} votes={data.votes} image={data.image} goAgain={data.goAgain}/>
 				)}

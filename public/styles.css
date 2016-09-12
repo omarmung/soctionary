@@ -271,6 +271,15 @@ button.btn.waves-effect.waves-light.playAgain {
 .voteInstance {
     text-align: center;
 }
+
+h1.results {
+    font-size: 35px;
+    text-align: center;
+    font-weight: bold;
+    color: #00a6a6;
+}
+
+
 /*
 .votingCountdown.valign {
     background: white;

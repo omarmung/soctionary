@@ -21,7 +21,7 @@ exports.retrieveRoundsDrawings = function (round, cb) {
     } else {
       cb(drawing);
     }
-  })
+  }).sort({voteCount:-1});
 };
 
 exports.updateVoteCount = function (rounds, name, cb) {

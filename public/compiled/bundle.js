@@ -28246,6 +28246,11 @@
 				return _react2.default.createElement(
 					"div",
 					{ id: "vote" },
+					_react2.default.createElement(
+						"h1",
+						{ className: "results" },
+						" Results! "
+					),
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image, goAgain: data.goAgain });
 					})
@@ -28384,7 +28389,7 @@
 					//this.renderDrawings(images);
 	
 					console.log('vote countdown started...');
-					this.tick();
+					setTimeout(this.tick.bind(this), 0);
 					document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
 					document.getElementsByClassName('waitTime')[0].style.display = 'none';
 				}.bind(this));
