@@ -4,7 +4,7 @@ var Board = () => (
 		<canvas id="canvas" width="375" height="375"></canvas>
 		</div>
 	)
-
+ 
 
 export default class Drawing extends React.Component {
 	constructor(props) {
