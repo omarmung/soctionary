@@ -1,6 +1,6 @@
-# Project Name
+# 5-Second Animal
 
-> Pithy project description
+> A multi-player drawing game!
 
 ## Team
 
@@ -20,31 +20,27 @@
 
 ## Usage
 
-> Some usage instructions
+> npm install, npm start
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 6.2.2
+- Mongo 3.2.8
+- Mongoose 4.6.0
+- React 15.3.1
+- npm install
 
 ## Development
 
 ### Installing Dependencies
 
 From within the root directory:
+- npm install, npm start
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://waffle.io/jousting-fern/soctionary)
 
 
 ## Contributing
