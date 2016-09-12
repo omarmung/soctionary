@@ -28409,7 +28409,14 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'waitTime' },
-						'Loading...'
+						_react2.default.createElement(
+							'p',
+							null,
+							'Loading...'
+						),
+						' ',
+						_react2.default.createElement('img', { src: 'stumpy-loading.gif' }),
+						' '
 					),
 					_react2.default.createElement(
 						'div',

@@ -180,3 +180,12 @@ span.givenAnimal {
     right: auto;
 }
 
+.waitTime {
+  font-size: 75px;
+  width: 80%;
+}
+
+.row.HR {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
