@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var drawingSchema = mongoose.Schema({
   roundId: Number,
   vectorDrawing: String,
-  playerName: {type: String,unique:true},
+  playerName: String,
   voteCount: Number
 });
 

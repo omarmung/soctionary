@@ -20,26 +20,32 @@ export default class Vote extends React.Component {
 	}
 
 	componentDidMount() {
-  document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+  document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
   document.getElementsByClassName('waitTime')[0].style.display = 'inline';
 
-	// componentWillUnmount() {
-	// 	clearInterval(this.timer);
+	}
+	componentWillUnmount() {
+		clearInterval(this.timer);
 	}
 
   tick() {
-  	this.setState({remainingTime: this.state.remainingTime - 1});
-  	console.log('tick: ' + this.state.remainingTime);
-    if (this.state.remainingTime <= 1) {
-    	clearInterval(this.timer);
-    	this.setState({remainingTime: '!'});
-    	setTimeout(this.hideCountDown.bind(this), 1000);
-      ;
-    }
+  		for(var i = 0; i < this.state.remainingTime; i++) {
+  			setTimeout(function() {
+  				this.setState({remainingTime: this.state.remainingTime - 1});
+  			}.bind(this), i*1000);
+  		}
+  	// var time1 = setInterval(function() {
+	  // 	this.setState({remainingTime: this.state.remainingTime - 1});
+	  // 	console.log('tick: ' + this.state.remainingTime);
+	  //   if (this.state.remainingTime <= 0) {
+	  //   	clearInterval(time1);
+	  //   }
+  	// }.bind(this), 1000);
+
   }
 
 	hideCountDown() {
-		document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+		document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
 	}
 
 	componentWillMount() {
@@ -47,7 +53,7 @@ export default class Vote extends React.Component {
 		socket.on('vote', function (data) {
 			//time for countdown
 			var time = data.time;
-			this.setState({remainingTime: time});
+			this.setState({remainingTime: time + 1});
 			var canvas = new fabric.Canvas('test')
 			//var images = [];
 			data.images.forEach( function(blob) {
@@ -68,7 +74,7 @@ export default class Vote extends React.Component {
 			  		canvas.clear();
 			  	})
 			})
- 
+ 			console.log('info', info);
 			this.setState({
 				renderInfo: info
 			})
@@ -78,7 +84,7 @@ export default class Vote extends React.Component {
 		  //this.renderDrawings(images);
   
     	console.log('vote countdown started...');
-    	this.timer = setInterval(this.tick.bind(this), 1000);
+    	this.tick();
     	document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
   	  document.getElementsByClassName('waitTime')[0].style.display = 'none';
       
@@ -91,6 +97,7 @@ export default class Vote extends React.Component {
 			window.location.href = '#/result' 
 		}.bind(this))
 	} 
+
 
 	getVotedName() {
 
