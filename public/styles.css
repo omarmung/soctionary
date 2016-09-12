@@ -114,12 +114,6 @@ input#player::-webkit-input-placeholder {
     font-weight: 900;
 }
 
-.voted {
-  outline: none;
-  border-color: gold;
-  box-shadow: 0 0 10px gold;
-}
-
 .mainbody {
     top: 110px;
     bottom: 75px;
@@ -172,6 +166,7 @@ span.givenAnimal {
     right: auto;
     float: left;
     padding: 10px;
+    text-align: center;
 }
 
 .waitTime {
@@ -235,7 +230,7 @@ span.numVotes {
 }
 
 .resultInstance p {
-    margin-bottom: -2px;
+    margin-bottom: 0px;
 }
 
 div#vote {
@@ -245,11 +240,10 @@ div#vote {
 
 .votingCountdown.valign {
     text-align: center;
-    margin-top:20px;
 }
 
 .votePrompt {
-    font-size: 25px;
+    font-size: 20px;
     margin-top: 5px;
 }
 
@@ -263,3 +257,25 @@ button.btn.waves-effect.waves-light.playAgain {
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.voted img {
+    outline: none;
+    border-color: gold;
+    /* box-shadow: 0 -12px 0px gold; */
+    -webkit-box-shadow: inset 0 0 10px gold;
+    -moz-box-shadow: inset 0 0 10px gold;
+    box-shadow: inset 0 0 10px gold;
+    background: white;
+}
+
+.voteInstance {
+    text-align: center;
+}
+/*
+.votingCountdown.valign {
+    background: white;
+    width: 100%;
+    position: fixed;
+    margin-top: -45px;
+    opacity: .4;
+}*/
