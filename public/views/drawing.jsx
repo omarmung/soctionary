@@ -43,6 +43,8 @@ export default class Drawing extends React.Component {
 		}.bind(this));
 
 		socket.on('end', function () {
+		  var node = document.getElementsByClassName('drawingWrapper')[0]
+		  this.triggerMouseEvent(node, 'mouseup')
 		  image = JSON.stringify(canvas);
 		  canvas.clear();
 		  //send image to server
@@ -61,10 +63,11 @@ export default class Drawing extends React.Component {
 		this.timer = setInterval(this.tick.bind(this), 1000)
 	}
 
-	// componentWillUnmount() {
-	// 	clearInterval(this.timer);
-	// }
-
+   triggerMouseEvent (node, eventType) {
+    var clickEvent = document.createEvent ('MouseEvents');
+    clickEvent.initEvent (eventType, true, true);
+    node.dispatchEvent (clickEvent);
+	}
   tick() {
   	this.setState({remainingTime: this.state.remainingTime - 1});
   	console.log('tick: ' + this.state.remainingTime);
