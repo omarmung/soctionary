@@ -116,7 +116,7 @@ export default class Vote extends React.Component {
 	render() {
 		//Need to decide if we use one big canvas, or just render images of all the drawings
 		return (
-			<div id="vote">
+			<div id="vote" className="row">
 			  <div className='waitTime'>Loading...</div>
 			  <div className='votingCountdown valign'>
 			  	<div className="votePrompt">Pick your favorite!</div>

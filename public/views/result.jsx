@@ -77,7 +77,7 @@ export default class Result extends React.Component {
 
 	render() {
 		return (
-			<div id="vote">
+			<div id="vote" className="row">
 				{this.state.renderInfo.map((data) => 
 					<Player id={data.id} name = {data.name} votes={data.votes} image={data.image} goAgain={data.goAgain}/>
 				)}
