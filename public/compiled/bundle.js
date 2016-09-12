@@ -28125,7 +28125,7 @@
   \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -28147,14 +28147,14 @@
 	
 	var Player = function Player(props) {
 		return _react2.default.createElement(
-			'div',
-			{ className: 'resultInstance', id: props.id },
-			props.name ? 'User ' + props.name + ' had ' + props.votes + ' votes. ' : null,
+			"div",
+			{ className: "resultInstance col s6", id: props.id },
+			props.name ? "User " + props.name + " had " + props.votes + " votes. " : null,
 			props.goAgain ? _react2.default.createElement(
-				'button',
-				{ onClick: props.goAgain },
-				'Play again?'
-			) : _react2.default.createElement('img', { src: props.image })
+				"button",
+				{ className: "btn waves-effect waves-light", onClick: props.goAgain },
+				"Play again?"
+			) : _react2.default.createElement("img", { src: props.image })
 		);
 	};
 	
@@ -28173,7 +28173,7 @@
 		}
 	
 		_createClass(Result, [{
-			key: 'componentWillMount',
+			key: "componentWillMount",
 			value: function componentWillMount() {
 	
 				var info = [];
@@ -28222,16 +28222,16 @@
 				});
 			}
 		}, {
-			key: 'goAgain',
+			key: "goAgain",
 			value: function goAgain() {
 				socket.emit('again');
 			}
 		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					{ id: 'vote', className: 'row' },
+					"div",
+					{ id: "vote", className: "row" },
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Player, { id: data.id, name: data.name, votes: data.votes, image: data.image, goAgain: data.goAgain });
 					})
@@ -28409,7 +28409,15 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'waitTime' },
-						'Loading...'
+						' ',
+						_react2.default.createElement('img', { className: 'loadingStump', src: 'stumpy-loading.gif' }),
+						' ',
+						_react2.default.createElement(
+							'p',
+							{ className: 'loadingText' },
+							'Loading...'
+						),
+						' '
 					),
 					_react2.default.createElement(
 						'div',
