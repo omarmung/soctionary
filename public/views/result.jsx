@@ -1,9 +1,9 @@
 import React from 'react'
 
 var Player = (props) => (
-	<div className="resultInstance col s6" id={props.id} >
-	{props.name ? `User ${props.name} had ${props.votes} votes. ` : null}
-	{props.goAgain ?  <button className="btn waves-effect waves-light" onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
+	<div className="resultInstance" id={props.id} >
+	{props.name ? <p><span className="userName">{props.name}</span> had <span className="numVotes">{props.votes}</span> votes. </p>: null}
+	{props.goAgain ?  <button className="btn waves-effect waves-light playAgain" onClick={props.goAgain}>Play again?</button> : <img src={props.image}/> }
  
 	</div>
 	)
@@ -77,7 +77,7 @@ export default class Result extends React.Component {
 
 	render() {
 		return (
-			<div id="vote" className="row">
+			<div id="vote">
 				{this.state.renderInfo.map((data) => 
 					<Player id={data.id} name = {data.name} votes={data.votes} image={data.image} goAgain={data.goAgain}/>
 				)}
