@@ -28289,19 +28289,47 @@
 			var _this = _possibleConstructorReturn(this, (Vote.__proto__ || Object.getPrototypeOf(Vote)).call(this, props));
 	
 			_this.state = {
-				renderInfo: []
+				renderInfo: [],
+				remainingTime: 10
 	
 			};
 			return _this;
 		}
 	
 		_createClass(Vote, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+				document.getElementsByClassName('waitTime')[0].style.display = 'inline';
+	
+				// componentWillUnmount() {
+				// 	clearInterval(this.timer);
+			}
+		}, {
+			key: 'tick',
+			value: function tick() {
+				this.setState({ remainingTime: this.state.remainingTime - 1 });
+				console.log('tick: ' + this.state.remainingTime);
+				if (this.state.remainingTime <= 1) {
+					clearInterval(this.timer);
+					this.setState({ remainingTime: '!' });
+					setTimeout(this.hideCountDown.bind(this), 1000);
+					;
+				}
+			}
+		}, {
+			key: 'hideCountDown',
+			value: function hideCountDown() {
+				document.getElementsByClassName('votingCountdown')[0].style.display = 'none';
+			}
+		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				var info = [];
 				socket.on('vote', function (data) {
 					//time for countdown
 					var time = data.time;
+					this.setState({ remainingTime: time });
 					var canvas = new fabric.Canvas('test');
 					//var images = [];
 					data.images.forEach(function (blob) {
@@ -28331,6 +28359,10 @@
 					// images is an array of JSON.stringify(canvas) objects to vote on
 					//this.renderDrawings(images);
 	
+					console.log('vote countdown started...');
+					this.timer = setInterval(this.tick.bind(this), 1000);
+					document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
+					document.getElementsByClassName('waitTime')[0].style.display = 'none';
 				}.bind(this));
 	
 				socket.on('countVotes', function () {
@@ -28367,6 +28399,27 @@
 				return _react2.default.createElement(
 					'div',
 					{ id: 'vote' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'waitTime' },
+						'Loading...'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'votingCountdown valign' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'votePrompt' },
+							'Pick your favorite!'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'voteCountdown' },
+							' ',
+							this.state.remainingTime,
+							' '
+						)
+					),
 					this.state.renderInfo.map(function (data) {
 						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2), image: data.image });
 					})
