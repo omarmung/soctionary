@@ -7,7 +7,8 @@ var Player = (props) => (
  
 	</div>
 	)
-
+//This page is very similar to voting view
+//The logic shown above is to ensure that certain views will be shown depending on state.
 
 export default class Result extends React.Component {
 	constructor(props) {

@@ -1,3 +1,7 @@
+
+//BIG NOTE:  We only used react router to setup routes.  We move from view to view using window.location.href
+
+
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'

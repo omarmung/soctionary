@@ -1,5 +1,6 @@
 import React from 'react'
 
+//the starting view shown when you load the game
 
 export default class Name extends React.Component {
 	constructor(props) {
