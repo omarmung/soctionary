@@ -1,13 +1,12 @@
 import React from 'react'
 
-//show prompt for thing
+//component used to show possible pictures to vote on
 var Select = (props) => (
 	<div className="voteInstance" id={props.id} value={props.name} onClick={() => props.voting(props.id)}>
 		<img src={props.image}/>
 	</div>
 	)
-
-//voted is the id tag for the current voted drawing
+//voted is the class tag for the current voted drawing
 
 export default class Vote extends React.Component {
 	constructor(props) {
@@ -20,52 +19,46 @@ export default class Vote extends React.Component {
 	}
 
 	componentDidMount() {
+		//used to show and hide loading screen
   document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
   document.getElementsByClassName('waitTime')[0].style.display = 'inline';
-
-	}
-	componentWillUnmount() {
-		clearInterval(this.timer);
 	}
 
+//Used to create countdown for voting view
   tick() {
   		for(var i = 0; i < this.state.remainingTime; i++) {
   			setTimeout(function() {
   				this.setState({remainingTime: this.state.remainingTime - 1});
   			}.bind(this), i*1000);
   		}
-  	// var time1 = setInterval(function() {
-	  // 	this.setState({remainingTime: this.state.remainingTime - 1});
-	  // 	console.log('tick: ' + this.state.remainingTime);
-	  //   if (this.state.remainingTime <= 0) {
-	  //   	clearInterval(time1);
-	  //   }
-  	// }.bind(this), 1000);
 
   }
 
-	hideCountDown() {
-		document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
-	}
+//The process to render images from blob data is this:  all the blobs for one picture get drawn on a virutal canvas;
+//Then, we take that canvas, and we get a image url for the entire picture;
+//Then, we pass the url to an img tag in the Select component to render the image.
+
 
 	componentWillMount() {
 		var info = [];
+
 		socket.on('vote', function (data) {
 			//time for countdown
 			var time = data.time;
+			//sets up countdown time passed from server
 			this.setState({remainingTime: time + 1});
 			var canvas = new fabric.Canvas('test')
 			//var images = [];
 			data.images.forEach( function(blob) {
-				//images.push(blob.vectorDrawing);
 			  	canvas.loadFromJSON( blob.vectorDrawing, function() {
-
+			  		//used to get data url for image to render on voting view
 			  		var image = canvas.toDataURL({
 							format: 'image/png',
 							multiplier: 0.25,
 							width: 375,
 						  height: 375
 						});
+			  		//info array is a state that get passed into the Select component that will render the pictures
 					info.push({
 						id: 'd' + info.length,
 						name:blob.playerName, 
@@ -75,6 +68,7 @@ export default class Vote extends React.Component {
 			  	})
 			})
  			console.log('info', info);
+ 			//Used to pass info to Select component
 			this.setState({
 				renderInfo: info
 			})
@@ -84,9 +78,10 @@ export default class Vote extends React.Component {
 		  //this.renderDrawings(images);
   
     	console.log('vote countdown started...');
+    	//Starts the countdown timer
     	setTimeout(this.tick.bind(this),0);
     	document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
-  	  document.getElementsByClassName('waitTime')[0].style.display = 'none';
+  	   document.getElementsByClassName('waitTime')[0].style.display = 'none';
       
 		}.bind(this));
 
@@ -100,7 +95,7 @@ export default class Vote extends React.Component {
 
 
 	getVotedName() {
-
+		//Used to get the name of the element with voted class
 		if (document.getElementsByClassName('voted')[0]) {
 	   return document.getElementsByClassName('voted')[0].getAttribute('value');
 		} else {
@@ -110,6 +105,7 @@ export default class Vote extends React.Component {
 
 
 	voting(id) {
+		//Used to prevent one from voting on more than one, and lets you vote
 		if(document.getElementsByClassName('voted')[0]) {
 			var vote = document.getElementsByClassName('voted')[0].id
 			document.getElementsByClassName('voted')[0].classList.remove("voted")
@@ -121,8 +117,8 @@ export default class Vote extends React.Component {
 
 
 	render() {
-		//Need to decide if we use one big canvas, or just render images of all the drawings
 		return (
+			//Most of the classNames here are used for css.
 			<div id="vote" className="row">
 			  <div className='waitTime'> <img className="loadingStump" src="stumpy-loading.gif"/> <p className="loadingText">Loading...</p> </div>
 			  <div className='votingCountdown valign'>

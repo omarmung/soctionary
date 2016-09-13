@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+//Simple ready view
 export default class ready extends React.Component {
 	constructor(props) {
 		super(props)

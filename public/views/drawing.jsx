@@ -1,4 +1,6 @@
 import React from 'react'
+
+//Used to render a board that we can draw on
 var Board = () => (
 	<div>
 		<canvas id="canvas" width="375" height="375"></canvas>
@@ -30,7 +32,7 @@ export default class Drawing extends React.Component {
 			this.setState({
 				drawCanvas: true
 			})
-
+			//creates canvas
 			canvas = new fabric.Canvas('canvas', {
 			  isDrawingMode: true
 			});
@@ -49,6 +51,8 @@ export default class Drawing extends React.Component {
 		  canvas.clear();
 		  //send image to server
 		  socket.emit('image', image); 
+		  //You may see a lot of these.  These are used to prevent the listener from firing off multiple times from persisting emitters.
+		  //If you want to see what actually happens, comment out the removeListeners and play the game more than once.
 		  socket.removeListener('end');
 		  window.location.href = '#/vote' 			  	
 		}.bind(this));

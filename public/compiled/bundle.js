@@ -79,6 +79,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//BIG NOTE:  We only used react router to setup routes.  We move from view to view using window.location.href
+	
+	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.hashHistory },
@@ -27840,6 +27843,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//the starting view shown when you load the game
+	
 	var Name = function (_React$Component) {
 		_inherits(Name, _React$Component);
 	
@@ -27911,6 +27916,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//Simple ready view
 	var ready = function (_React$Component) {
 		_inherits(ready, _React$Component);
 	
@@ -27986,6 +27992,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//Used to render a board that we can draw on
 	var Board = function Board() {
 		return _react2.default.createElement(
 			"div",
@@ -28025,7 +28032,7 @@
 					this.setState({
 						drawCanvas: true
 					});
-	
+					//creates canvas
 					canvas = new fabric.Canvas('canvas', {
 						isDrawingMode: true
 					});
@@ -28042,6 +28049,8 @@
 					canvas.clear();
 					//send image to server
 					socket.emit('image', image);
+					//You may see a lot of these.  These are used to prevent the listener from firing off multiple times from persisting emitters.
+					//If you want to see what actually happens, comment out the removeListeners and play the game more than once.
 					socket.removeListener('end');
 					window.location.href = '#/vote';
 				}.bind(this));
@@ -28171,6 +28180,8 @@
 			) : _react2.default.createElement("img", { src: props.image })
 		);
 	};
+	//This page is very similar to voting view
+	//The logic shown above is to ensure that certain views will be shown depending on state.
 	
 	var Result = function (_React$Component) {
 		_inherits(Result, _React$Component);
@@ -28290,7 +28301,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	//show prompt for thing
+	//component used to show possible pictures to vote on
 	var Select = function Select(props) {
 		return _react2.default.createElement(
 			'div',
@@ -28300,8 +28311,7 @@
 			_react2.default.createElement('img', { src: props.image })
 		);
 	};
-	
-	//voted is the id tag for the current voted drawing
+	//voted is the class tag for the current voted drawing
 	
 	var Vote = function (_React$Component) {
 		_inherits(Vote, _React$Component);
@@ -28322,14 +28332,13 @@
 		_createClass(Vote, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
+				//used to show and hide loading screen
 				document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
 				document.getElementsByClassName('waitTime')[0].style.display = 'inline';
 			}
-		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				clearInterval(this.timer);
-			}
+	
+			//Used to create countdown for voting view
+	
 		}, {
 			key: 'tick',
 			value: function tick() {
@@ -28338,39 +28347,35 @@
 						this.setState({ remainingTime: this.state.remainingTime - 1 });
 					}.bind(this), i * 1000);
 				}
-				// var time1 = setInterval(function() {
-				// 	this.setState({remainingTime: this.state.remainingTime - 1});
-				// 	console.log('tick: ' + this.state.remainingTime);
-				//   if (this.state.remainingTime <= 0) {
-				//   	clearInterval(time1);
-				//   }
-				// }.bind(this), 1000);
 			}
-		}, {
-			key: 'hideCountDown',
-			value: function hideCountDown() {
-				document.getElementsByClassName('votingCountdown valign')[0].style.display = 'none';
-			}
+	
+			//The process to render images from blob data is this:  all the blobs for one picture get drawn on a virutal canvas;
+			//Then, we take that canvas, and we get a image url for the entire picture;
+			//Then, we pass the url to an img tag in the Select component to render the image.
+	
+	
 		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				var info = [];
+	
 				socket.on('vote', function (data) {
 					//time for countdown
 					var time = data.time;
+					//sets up countdown time passed from server
 					this.setState({ remainingTime: time + 1 });
 					var canvas = new fabric.Canvas('test');
 					//var images = [];
 					data.images.forEach(function (blob) {
-						//images.push(blob.vectorDrawing);
 						canvas.loadFromJSON(blob.vectorDrawing, function () {
-	
+							//used to get data url for image to render on voting view
 							var image = canvas.toDataURL({
 								format: 'image/png',
 								multiplier: 0.25,
 								width: 375,
 								height: 375
 							});
+							//info array is a state that get passed into the Select component that will render the pictures
 							info.push({
 								id: 'd' + info.length,
 								name: blob.playerName,
@@ -28380,6 +28385,7 @@
 						});
 					});
 					console.log('info', info);
+					//Used to pass info to Select component
 					this.setState({
 						renderInfo: info
 					});
@@ -28389,6 +28395,7 @@
 					//this.renderDrawings(images);
 	
 					console.log('vote countdown started...');
+					//Starts the countdown timer
 					setTimeout(this.tick.bind(this), 0);
 					document.getElementsByClassName('votingCountdown')[0].style.display = 'inline';
 					document.getElementsByClassName('waitTime')[0].style.display = 'none';
@@ -28404,7 +28411,7 @@
 		}, {
 			key: 'getVotedName',
 			value: function getVotedName() {
-	
+				//Used to get the name of the element with voted class
 				if (document.getElementsByClassName('voted')[0]) {
 					return document.getElementsByClassName('voted')[0].getAttribute('value');
 				} else {
@@ -28414,6 +28421,7 @@
 		}, {
 			key: 'voting',
 			value: function voting(id) {
+				//Used to prevent one from voting on more than one, and lets you vote
 				if (document.getElementsByClassName('voted')[0]) {
 					var vote = document.getElementsByClassName('voted')[0].id;
 					document.getElementsByClassName('voted')[0].classList.remove("voted");
@@ -28427,42 +28435,44 @@
 			value: function render() {
 				var _this2 = this;
 	
-				//Need to decide if we use one big canvas, or just render images of all the drawings
-				return _react2.default.createElement(
-					'div',
-					{ id: 'vote', className: 'row' },
+				return (
+					//Most of the classNames here are used for css.
 					_react2.default.createElement(
 						'div',
-						{ className: 'waitTime' },
-						' ',
-						_react2.default.createElement('img', { className: 'loadingStump', src: 'stumpy-loading.gif' }),
-						' ',
-						_react2.default.createElement(
-							'p',
-							{ className: 'loadingText' },
-							'Loading...'
-						),
-						' '
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'votingCountdown valign' },
+						{ id: 'vote', className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'votePrompt' },
-							'Pick your favorite!'
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'voteCountdown' },
+							{ className: 'waitTime' },
 							' ',
-							this.state.remainingTime,
+							_react2.default.createElement('img', { className: 'loadingStump', src: 'stumpy-loading.gif' }),
+							' ',
+							_react2.default.createElement(
+								'p',
+								{ className: 'loadingText' },
+								'Loading...'
+							),
 							' '
-						)
-					),
-					this.state.renderInfo.map(function (data) {
-						return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2), image: data.image });
-					})
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'votingCountdown valign' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'votePrompt' },
+								'Pick your favorite!'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'voteCountdown' },
+								' ',
+								this.state.remainingTime,
+								' '
+							)
+						),
+						this.state.renderInfo.map(function (data) {
+							return _react2.default.createElement(Select, { id: data.id, name: data.name, voting: _this2.voting.bind(_this2), image: data.image });
+						})
+					)
 				);
 			}
 		}]);
